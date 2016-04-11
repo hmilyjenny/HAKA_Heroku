@@ -4,7 +4,6 @@
   "description": "基于音码文件的产品宣传平台",
   "main": "index.js",
   "scripts": {
-  
     "start": "node index.js"
   },
   "keywords": [
@@ -44,12 +43,12 @@
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.12.15"
+    "webpack": "^1.12.15",
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-hot-middleware": "^2.10.0"
   },
   "devDependencies": {
     "babel-preset-react-hmre": "^1.1.1",
-    "webpack-dev-middleware": "^1.6.1",
-    "webpack-dev-server": "^1.14.1",
-    "webpack-hot-middleware": "^2.10.0"
+    "webpack-dev-server": "^1.14.1"
   }
 }
