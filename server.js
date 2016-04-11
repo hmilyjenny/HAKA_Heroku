@@ -7,16 +7,16 @@ import path from 'path';
 var express = require("express");
 var app = new Express();
 
-import webpack from 'webpack';
-import config from './webpack.config';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
-
-if (process.env.NODE_ENV !== 'production') {
-  const compiler = webpack(config);
-  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath}));
-  app.use(webpackHotMiddleware(compiler));
-}
+// import webpack from 'webpack';
+// import config from './webpack.config';
+// import webpackDevMiddleware from 'webpack-dev-middleware';
+// import webpackHotMiddleware from 'webpack-hot-middleware';
+//
+// if (process.env.NODE_ENV !== 'production') {
+//   const compiler = webpack(config);
+//   app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath}));
+//   app.use(webpackHotMiddleware(compiler));
+// }
 
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json({ limit: '20mb' }));
