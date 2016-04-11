@@ -34,7 +34,13 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
   dummyData();
 });
 
-//import auth from './api/routes/auth.routes';
+import auth from './api/routes/auth.routes';
+import passport from 'passport';
+import {tokenCheck} from './api/utils/passport_jwt';
+
+app.use(passport.initialize());
+tokenCheck(passport);
+app.use('/api/auth', auth);
 
 // start app
 var server=app.listen(serverConfig.port, (error) => {
