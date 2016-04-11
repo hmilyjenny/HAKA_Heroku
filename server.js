@@ -34,7 +34,7 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
   dummyData();
 });
 
-import auth from './api/routes/auth.routes';
+//import auth from './api/routes/auth.routes';
 
 // start app
 var server=app.listen(serverConfig.port, (error) => {
