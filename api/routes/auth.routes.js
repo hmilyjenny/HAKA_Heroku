@@ -10,6 +10,7 @@ import * as AuthController from '../controllers/auth.controller';
 const router = new Router();
 router.route('/signIn').post(AuthController.signIn);
 router.route('/register').post(AuthController.register);
+router.route('/allUser').get(AuthController.GetAllUser);
 
 
 

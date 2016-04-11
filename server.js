@@ -18,9 +18,6 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(webpackHotMiddleware(compiler));
 }
 
-app.use(express.static(__dirname + "/public"));
-app.use(bodyParser.json({ limit: '20mb' }));
-
 
 // MongoDB Connection
 import serverConfig from './config';
@@ -38,6 +35,9 @@ import auth from './api/routes/auth.routes';
 import passport from 'passport';
 import {tokenCheck} from './api/utils/passport_jwt';
 
+app.use(bodyParser.json({ limit: '20mb' }));
+app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
+app.use(express.static(__dirname + "/public"));
 app.use(passport.initialize());
 tokenCheck(passport);
 app.use('/api/auth', auth);

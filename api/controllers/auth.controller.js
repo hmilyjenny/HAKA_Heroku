@@ -12,7 +12,7 @@ export function signIn (req,res){
          res.status(401).send('token认证失败');
       }
       if(!user){
-        res.status(403).send('认证失败。用户名错误');
+        res.status(403).send('认证失败。用户名错误'+JSON.stringify(req.body.email));
       }else{
         user.comparePassword(req.body.password,function(err,isMatch){
           if(isMatch && !err){
@@ -46,3 +46,12 @@ export function register(req,res) {
         });
       }
     }
+export function GetAllUser(req,res){
+  Tb_User.find(function(err,users){
+    if(err){
+      res.status(401).send('没数据');
+    }else{
+      res.status(201).json({users:users});
+    }
+  })
+}
