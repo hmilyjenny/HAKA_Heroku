@@ -4,7 +4,7 @@
   "description": "基于音码文件的产品宣传平台",
   "main": "index.js",
   "scripts": {
-    "postinstall": "webpack --config ./webpack-prod.config.js --progress --colors",
+    "postinstall": "webpack --config ./webpack-production.config.js --progress --colors",
     "start": "node index.js"
   },
   "keywords": [
