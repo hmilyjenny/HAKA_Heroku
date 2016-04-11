@@ -4,7 +4,7 @@
   "description": "基于音码文件的产品宣传平台",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "webpack --config ./webpack-prod.config.js --progress --colors",
     "start": "node index.js"
   },
   "keywords": [
@@ -26,11 +26,30 @@
     "es6-promise": "^3.1.2",
     "express": "^4.13.4",
     "file-loader": "^0.8.5",
+    "history": "^2.0.1",
+    "isomorphic-fetch": "^2.2.1",
+    "jwt-decode": "^2.0.1",
     "mongoose": "^4.4.12",
     "node-sass": "^3.4.2",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.0.0",
+    "react": "^15.0.1",
+    "react-addons-linked-state-mixin": "^15.0.1",
+    "react-bootstrap": "^0.28.5",
+    "react-css-modules": "^3.7.6",
+    "react-dom": "^15.0.1",
+    "react-redux": "^4.4.2",
+    "redux": "^3.4.0",
+    "redux-thunk": "^2.0.1",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.15"
+  },
+  "devDependencies": {
+    "babel-preset-react-hmre": "^1.1.1",
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-hot-middleware": "^2.10.0"
   }
 }
