@@ -15,7 +15,7 @@ module.exports = {
     publicPath: '/public/'
   },
   module:{
-    loaders:[
+    loader:[
       {
         test: /\.(js|jsx)$/,  //All .js and .jsx files
         loaders: 'babel', //react-hot is like browser sync and babel loads jsx and es6-7
@@ -25,13 +25,13 @@ module.exports = {
         test: /\.css$/,
         loaders:[
           'style-loader?sourceMap',
-          'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
-          'sass'
+          'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+          'sass-loader'
         ]
       },
       {
         test: /\.scss$/,
-        loaders: ["style", "css", "sass"]
+        loaders: ["style-loader", "css-loader", "sass-loader"]
       },
       {
         test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)([\?]?.*)$/,
