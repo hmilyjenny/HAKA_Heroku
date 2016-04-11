@@ -3,8 +3,9 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import path from 'path';
 
+var express = require("express");
 var app = new Express();
-app.use(Express.static(path.resolve(__dirname, '/public')));
+app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json({ limit: '20mb' }));
 
 // MongoDB Connection
