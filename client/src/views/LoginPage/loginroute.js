@@ -5,11 +5,17 @@ import LoginPage from './loginpage';
 import * as actionCreators from '../../actions/authActions';
 
 var LoginRoute = React.createClass({
-    login:function(email,password,redirectRoute){
-      this.props.actions.loginUser(email,password,redirectRoute);
+    getInitialState:function(){
+      return {
+        redirectRoute:this.props.location.query.next||'/login'
+      }
     },
+
+    login:function(email,password){
+      this.props.actions.loginUser(email,password,this.state.redirectRoute);
+    },
+
     render:function(){
-     const redirectRoute = this.props.location.query.next || '/login';
       return(
         <LoginPage auth={this.props} login={this.login}/>
       )

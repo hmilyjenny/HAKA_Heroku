@@ -8,11 +8,11 @@ import styles from './css/login-page.css';
 var LoginPage = React.createClass({
   mixins: [LinkedStateMixin],
   getInitialState: function(){
-    const redirectRoute =  '/login';
+    //const redirectRoute =  '/login';
     return {
       email: '',
       password: '',
-      redirectTo:redirectRoute,
+      //redirectTo:redirectRoute,
       isAuthenticating:false,
       statusText:''
     };
@@ -53,7 +53,7 @@ var LoginPage = React.createClass({
   },
   onSubmitEvent:function(event){
      event.preventDefault();
-     this.props.login(this.state.email, this.state.password, this.state.redirectTo);
+     this.props.login(this.state.email, this.state.password);
   },
   render:function(){
     const mailGlyphicon = <Glyphicon glyph="envelope" />;

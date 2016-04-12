@@ -2,7 +2,7 @@ import jwtDecode from 'jwt-decode';
 import {LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE,
   LOGOUT_USER,LOGIN_USER_EXPIRE,REGISTER_USER_REQUEST,REGISTER_USER_SUCCESS,
   REGISTER_USER_FAILURE } from '../constants/authConstants';
-  
+
 const initialState = {
     token: null,
     userName: null,
@@ -45,8 +45,8 @@ const authReducer = (state = initialState,action) =>{
         'isAuthenticating':false,
         'isAuthenticated': true,
         'token':action.payload.token,
-        'userName': jwtDecode(action.payload.token).username,
-        'role':jwtDecode(action.payload.token).role,
+        'userName': jwtDecode(action.payload.token)._doc.email,
+        'role':jwtDecode(action.payload.token)._doc.role,
         'statusText':'您已经成功登陆'
       });
       break;

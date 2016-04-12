@@ -40,11 +40,11 @@ app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
 app.use(express.static(__dirname + "/public"));
 app.use(passport.initialize());
 tokenCheck(passport);
-app.use('/api/auth', auth);
 
-// app.get('*', function (request, response){
-//   response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
-// })
+app.get('*', function (request, response){
+  response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+})
+app.use('/api/auth', auth);
 
 // start app
 var server=app.listen(serverConfig.port, (error) => {

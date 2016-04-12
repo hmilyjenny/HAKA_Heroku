@@ -26,7 +26,7 @@ var LandingPage = React.createClass({
           <Nav pullRight>
           {/*<NavItem href="/login">论坛</NavItem>*/}
             <li><Link to="#">论坛</Link></li>
-            <li><Link to="#">控制面板</Link></li>
+            <li><Link to="/dashboard">控制面板</Link></li>
           </Nav>
           </Navbar.Collapse>
         </Navbar>

@@ -1,0 +1,63 @@
+@import "../../../../static/scss/_bootstrap.scss";
+@import "../../../../static/scss/font-awesome.scss";
+.wrapper {
+    width: 100%;
+    padding: 0;
+}
+.page-wrapper {
+    padding: 20px;
+    min-height: 568px;
+    background-color: #fff;
+    position: relative;
+}
+.header-bar{
+  padding: 0px;
+}
+@media(min-width:768px) {
+    .page-wrapper {
+        position: inherit;
+        margin: 0 0 0 250px;
+        padding: 0 30px;
+        border-left: 1px solid #e7e7e7;
+    }
+}
+
+.sidebar-wrapper {
+  display: none;
+}
+@media (min-width: 768px) {
+  .sidebar-wrapper {
+
+      width: 250px;
+      height: 100px;
+  }
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    margin-left: -200px;
+    width: 200px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav ul li {
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.sidebar-nav ul li a.active {
+    background-color: #eee;
+}
+.page-content-wrapper {
+        padding: 20px;
+        position: relative;
+        background-color: #fff;
+    }

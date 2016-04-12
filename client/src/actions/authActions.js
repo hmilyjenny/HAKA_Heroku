@@ -53,7 +53,7 @@ export function loginUserFailure(error){
 export function logoutAndRedirect() {
       return (dispatch, state) => {
           dispatch(logout());
-          browserHistory.replace(null, '/');
+          browserHistory.push('/');
       }
   }
 export function logout() {

@@ -3,7 +3,6 @@ import JWT from 'jsonwebtoken';
 import serverConfig from '../../config';
 import Tb_User from '../models/user'
 
-
 export function signIn (req,res){
     Tb_User.findOne({
       email:req.body.email
@@ -20,6 +19,7 @@ export function signIn (req,res){
               expiresIn:serverConfig.token.expires
             });
             res.status(200).json({token:token});
+            //res.status(200).json(jwt_decode(token)._doc.email)
           }else{
             res.status(403).send('认证失败。密码错误');
           }
