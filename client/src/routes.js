@@ -7,8 +7,8 @@ import LandingPage from './views/LandingPage/landingpage';
 export default(
     <Route  component={App}>
         <Route path='/' component={LandingPage} />
-        {/*<Route path="/login" component={LoginRoute}/>
-        <Route path="/register" component={RegisterRoute} />
+        <Route path="/login" component={LoginRoute}/>
+        {/*<Route path="/register" component={RegisterRoute} />
         <Route path="/dashboard" component={DashBoardRoute} />*/}
     </Route>
 );

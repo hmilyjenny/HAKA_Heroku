@@ -8,7 +8,7 @@ var express = require("express");
 var app = new Express();
 
 import webpack from 'webpack';
-import config from './webpack-prod.config';
+import config from './webpack.config';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
