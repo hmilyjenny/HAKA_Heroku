@@ -1,0 +1,14 @@
+@import "../../../../static/css/font-awesome.css";
+
+.login-box,
+.register-box {
+    margin:9% auto;
+    width: 360px;
+}
+.login-brand-text {
+    margin-top: 5%;
+}
+
+.login-panel {
+    margin-top: 5%;
+}
