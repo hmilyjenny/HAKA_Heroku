@@ -5,7 +5,7 @@ var AudioFileUpload = React.createClass({
   render:function(){
     return(
       <div>
-        <h1>AudioFileUpload</h1>
+        <h1>上传音频文件</h1>
         <Button onClick={this.props.submitAudioFileUpload}>sumbit</Button>
       </div>
     )

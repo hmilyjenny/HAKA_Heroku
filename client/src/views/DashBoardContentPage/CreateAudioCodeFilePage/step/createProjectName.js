@@ -5,7 +5,7 @@ var ProjectNameCreate = React.createClass({
   render:function(){
     return(
       <div>
-        <h1>ProjectNameCreate</h1>
+        <h1>建立项目名称</h1>
         <Button onClick={this.props.submitProjectName}>sumbit</Button>
       </div>
     )
