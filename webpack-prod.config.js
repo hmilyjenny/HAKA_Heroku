@@ -1,37 +1,37 @@
-var path = require('path');
 var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
-  devtool: 'source-map',
+  devtool: 'cheap-module-eval-source-map',
   entry: [
-    './client/src/index.js'
+          './client/src/index.js',
   ],
-  resolve: {
-    extensions: ["", ".js", ".jsx"]
-  },
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'bundle.js',
     publicPath: '/public/'
   },
+  resolve: {
+    extensions: ['', '.js', '.jsx'],
+  },
   module:{
-    loader:[
+    loaders:[
       {
-        test: /\.(js|jsx)$/,  //All .js and .jsx files
-        loaders: 'babel', //react-hot is like browser sync and babel loads jsx and es6-7
-        exclude: path.resolve(__dirname, 'node_modules')
+        test: /\.jsx*$/,
+        exclude: [/node_modules/, /.+\.config.js/],
+        loader: 'babel',
       },
       {
         test: /\.css$/,
         loaders:[
           'style-loader?sourceMap',
-          'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
-          'sass-loader'
+          'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+          'sass'
         ]
       },
       {
         test: /\.scss$/,
-        loaders: ["style-loader", "css-loader", "sass-loader"]
+        loaders: ["style", "css", "sass"]
       },
       {
         test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)([\?]?.*)$/,
@@ -39,11 +39,12 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
+  plugins:[
+    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false,
+      minimize: true,
+      compress: {
+        warnings: false
       }
     })
   ],
