@@ -13,7 +13,7 @@ export function tokenCheck (passport) {
         return done(err, false);
       }
       if (user) {
-        done(null, user);
+        done(null, JSON.stringify(user));
       } else {
         done(null, false);
       }

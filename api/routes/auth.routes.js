@@ -7,11 +7,11 @@ import * as AuthController from '../controllers/auth.controller';
 *    });
 *
 */
-const router = new Router();
-router.route('/signIn').post(AuthController.signIn);
-router.route('/register').post(AuthController.register);
-router.route('/allUser').get(AuthController.GetAllUser);
+const authRouter = new Router();
+authRouter.route('/signIn').post(AuthController.signIn);
+authRouter.route('/register').post(AuthController.register);
+authRouter.route('/allUser').get(AuthController.GetAllUser);
 
 
 
-export default router;
+export default authRouter;

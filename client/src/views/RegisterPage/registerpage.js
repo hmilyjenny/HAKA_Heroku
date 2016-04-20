@@ -1,7 +1,7 @@
 import React from 'react';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import CSSModules from 'react-css-modules';
-import reactMixin from 'react-mixin';
+//import reactMixin from 'react-mixin';
 import { Grid,Row,Col,Panel,form,Input,Button,Glyphicon } from 'react-bootstrap';
 import styles from './css/register-page.css';
 
@@ -63,6 +63,14 @@ var RegisterPage = React.createClass({
     const mailGlyphicon = <Glyphicon glyph="envelope" />;
     const lockGlyphicon = <Glyphicon glyph="lock" />;
     const grainGlyphicon = <Glyphicon glyph="grain" />;
+    var emailValueLink = this.linkState('email');
+    var passwordValueLink = this.linkState('password');
+    var emailHandleChange = function(e) {
+      emailValueLink.requestChange(e.target.value);
+    };
+    var passwordHandleChange = function(e) {
+      passwordValueLink.requestChange(e.target.value);
+    };
     return(
       <Grid styleName="register-box">
         <Row>
@@ -74,9 +82,9 @@ var RegisterPage = React.createClass({
             <form>
               <fieldset>
                 <Input placeholder="Email"  bsStyle={this.validationEmailState()} hasFeedback
-                  type="email" autofocus=""  valueLink={this.linkState('email')} addonBefore={mailGlyphicon} />
+                  type="email" autofocus=""  value={emailValueLink.value} addonBefore={mailGlyphicon} onChange={emailHandleChange}/>
                 <Input placeholder="Password" type="password"  bsStyle={this.validationPasswordState()} hasFeedback
-                  valueLink={this.linkState('password')} addonBefore={lockGlyphicon}  />
+                  value={passwordValueLink.value} addonBefore={lockGlyphicon} onChange={passwordHandleChange} />
                 <Input placeholder="邀请码" type="text" hasFeedback
                     valueLink={this.linkState('inviteCode')} addonBefore={grainGlyphicon}  />
                 <Button onClick={this.onSubmitEvent} bsSize="large" bsStyle="primary" disabled={this.state.isRegistering} block>注 册</Button>

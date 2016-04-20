@@ -15,6 +15,7 @@ var ContentContainer = React.createClass({
       }
     );
   },
+  //根据组件名称渲染不同组件
   bundle:function(location){
     this.setState({
       loadComponent:location

@@ -19,6 +19,7 @@ var DashBoardLayout = React.createClass({
   componentWillUnmount: function(){
     $(window).unbind('resize',this.adjustResize);
   },
+  //选择所需渲染的组件
   handleSelect(selectedKey) {
     if(selectedKey==1){
       this.refs.cc.bundle('ProjectsPage');

@@ -11,3 +11,15 @@ export function checkHttpStatus(response) {
 export function parseJSON(response) {
      return response.json()
 }
+export function formatErrMsg(response){
+  switch (response.errCode) {
+    case 40001:
+      return '缺少'+response.errMsg+'参数';
+      break;
+    case 40002:
+      return '该'+response.errMsg+'已存在';
+      break;
+    default:
+      return response.errMsg
+  }
+}

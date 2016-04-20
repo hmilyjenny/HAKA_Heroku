@@ -32,6 +32,8 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
 });
 
 import auth from './api/routes/auth.routes';
+import project from './api/routes/project.routes';
+//import upload from './api/routes/upload.routes';
 import passport from 'passport';
 import {tokenCheck} from './api/utils/passport_jwt';
 
@@ -45,6 +47,8 @@ app.get('*', function (request, response){
   response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 })
 app.use('/api/auth', auth);
+app.use('api/project',project);
+//app.use('/api/upload',upload);
 
 // start app
 var server=app.listen(serverConfig.port, (error) => {

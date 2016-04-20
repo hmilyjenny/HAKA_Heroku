@@ -3,6 +3,8 @@ import JWT from 'jsonwebtoken';
 import serverConfig from '../../config';
 import Tb_User from '../models/user'
 
+//import jwtDecode from 'jwt-decode';
+
 export function signIn (req,res){
     Tb_User.findOne({
       email:req.body.email
@@ -15,11 +17,12 @@ export function signIn (req,res){
       }else{
         user.comparePassword(req.body.password,function(err,isMatch){
           if(isMatch && !err){
-            var token =JWT.sign(user,serverConfig.token.secret,{
-              expiresIn:serverConfig.token.expires
+            var token =JWT.sign(JSON.stringify(user),serverConfig.token.secret,{
+              //expiresIn:serverConfig.token.expires
+              expiresIn:10080
             });
-            res.status(200).json({token:token});
-            //res.status(200).json(jwt_decode(token)._doc.email)
+            res.status(200).json({token:'JWT ' +token});
+            //res.status(200).json(jwtDecode(token))
           }else{
             res.status(403).send('认证失败。密码错误');
           }

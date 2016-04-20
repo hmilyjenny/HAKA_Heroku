@@ -45,8 +45,8 @@ const authReducer = (state = initialState,action) =>{
         'isAuthenticating':false,
         'isAuthenticated': true,
         'token':action.payload.token,
-        'userName': jwtDecode(action.payload.token)._doc.email,
-        'role':jwtDecode(action.payload.token)._doc.role,
+        'userName': jwtDecode(action.payload.token).email,
+        'role':jwtDecode(action.payload.token).role,
         'statusText':'您已经成功登陆'
       });
       break;

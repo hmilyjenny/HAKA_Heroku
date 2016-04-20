@@ -16,7 +16,13 @@ var DashBoardRoute = React.createClass({
       )
     }
 });
+
+const mapStateToProps = (state) => ({
+  role     : state.auth.role,
+  token :state.auth.token
+});
+
 const mapDispatchToProps = (dispatch) => ({
   actions : bindActionCreators(actionCreators, dispatch)
 });
-export default connect(null,mapDispatchToProps)(DashBoardRoute);
+export default connect(mapStateToProps,mapDispatchToProps)(DashBoardRoute);

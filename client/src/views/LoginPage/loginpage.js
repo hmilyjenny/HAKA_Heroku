@@ -1,7 +1,7 @@
 import React from 'react';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import CSSModules from 'react-css-modules';
-import reactMixin from 'react-mixin';
+//import reactMixin from 'react-mixin';
 import { Grid,Row,Col,Panel,form,Input,Button,Glyphicon } from 'react-bootstrap';
 import styles from './css/login-page.css';
 
@@ -58,8 +58,15 @@ var LoginPage = React.createClass({
   render:function(){
     const mailGlyphicon = <Glyphicon glyph="envelope" />;
     const lockGlyphicon = <Glyphicon glyph="lock" />
+    var emailValueLink = this.linkState('email');
+    var passwordValueLink = this.linkState('password');
+    var emailHandleChange = function(e) {
+      emailValueLink.requestChange(e.target.value);
+    };
+    var passwordHandleChange = function(e) {
+      passwordValueLink.requestChange(e.target.value);
+    };
     return(
-
         <Grid styleName="login-box">
           <Row>
             <Col md={4} mdOffset={4}>
@@ -70,9 +77,9 @@ var LoginPage = React.createClass({
               <form>
                 <fieldset>
                   <Input placeholder="Email"  bsStyle={this.validationEmailState()} hasFeedback
-                    type="email" autofocus=""  valueLink={this.linkState('email')} addonBefore={mailGlyphicon} />
+                    type="email" autofocus=""  value={emailValueLink.value} addonBefore={mailGlyphicon} onChange={emailHandleChange}/>
                   <Input placeholder="Password" type="password"  bsStyle={this.validationPasswordState()} hasFeedback
-                    valueLink={this.linkState('password')} addonBefore={lockGlyphicon}  />
+                    value={passwordValueLink.value} addonBefore={lockGlyphicon} onChange={passwordHandleChange} />
                   <Input type="checkbox" label="记住我" />
                   <Button onClick={this.onSubmitEvent} bsSize="large" bsStyle="primary" disabled={this.state.isAuthenticating} block>登 录</Button>
                   <br/>
@@ -93,7 +100,6 @@ var LoginPage = React.createClass({
             </Col>
           </Row>
         </Grid>
-
     )
   }
 });
