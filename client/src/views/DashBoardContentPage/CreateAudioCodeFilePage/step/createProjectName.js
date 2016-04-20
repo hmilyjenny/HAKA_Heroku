@@ -17,8 +17,9 @@ var ProjectNameCreate = React.createClass({
     return(
       <div>
         <Panel header="建立项目名称">
-          <Input type="text" bsSize="large" placeholder="项目名称" label="项目名称" />
-          <Button>下一步</Button>
+          <Input type="text" bsSize="large" placeholder="项目名称" label="项目名称"
+          value={projectNameValueLink.value} onChange={handleChange} />
+          <Button onClick={this.props.submitProjectName(this.state.projectName)}>下一步</Button>
         </Panel>
       </div>
     )

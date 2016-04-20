@@ -29,10 +29,10 @@ var CreateAudioCodeFilePage = React.createClass({
   },
   componentWillMount: function() {
     //此处应通过action取当前项目所完成步骤情况
-    //this.setComponentsState(1);
+    this.setComponentsState(1);
   },
   componentWillReceiveProps:function(nextProps){
-    //this.setComponentsState(nextProps.currentStep);
+    this.setComponentsState(nextProps.currentStep);
   },
   setComponentsState:function(currentStep){
     switch (currentStep) {
@@ -117,7 +117,7 @@ var CreateAudioCodeFilePage = React.createClass({
   showStep: function() {
     switch (this.state.step) {
       case 1:
-        return <ProjectNameCreate submitProjectName={this.submitProjectName} />
+        return <ProjectNameCreate {...this.props} submitProjectName={this.submitProjectName} />
       case 2:
         return <CategorySelect {...this.props} submitCategorySelect={this.submitCategorySelect} />
       case 3:

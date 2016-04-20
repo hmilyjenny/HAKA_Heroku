@@ -18,7 +18,7 @@ export function signIn (req,res){
         user.comparePassword(req.body.password,function(err,isMatch){
           if(isMatch && !err){
             var token =JWT.sign(JSON.stringify(user),serverConfig.token.secret,{
-              //expiresIn:serverConfig.token.expires
+              //expiresIn:serverConfig.token.expires//转为数字型
               expiresIn:10080
             });
             res.status(200).json({token:'JWT ' +token});
