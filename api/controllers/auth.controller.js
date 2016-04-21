@@ -4,7 +4,7 @@ import serverConfig from '../../config';
 import Tb_User from '../models/user'
 
 //import jwtDecode from 'jwt-decode';
-
+//mongoose-unique-validator还没有加入，后面完善
 export function signIn (req,res){
     Tb_User.findOne({
       email:req.body.email
@@ -17,10 +17,7 @@ export function signIn (req,res){
       }else{
         user.comparePassword(req.body.password,function(err,isMatch){
           if(isMatch && !err){
-            var token =JWT.sign(JSON.stringify(user),serverConfig.token.secret,{
-              //expiresIn:serverConfig.token.expires//转为数字型
-              expiresIn:10080
-            });
+            var token =JWT.sign(JSON.stringify(user),serverConfig.token.secret,{ expiresIn: 10 });
             res.status(200).json({token:'JWT ' +token});
             //res.status(200).json(jwtDecode(token))
           }else{

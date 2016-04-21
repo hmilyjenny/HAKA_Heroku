@@ -1,4 +1,4 @@
-@import "../../../../static/scss/_bootstrap.scss";
+
 
 .login-box,
 .register-box {
@@ -11,4 +11,10 @@
 
 .register-panel {
     margin-top: 5%;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
 }

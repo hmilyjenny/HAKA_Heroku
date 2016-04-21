@@ -69,7 +69,7 @@ var LoginPage = React.createClass({
     return(
         <Grid styleName="login-box">
           <Row>
-            <Col md={4} mdOffset={4}>
+            <Col md={12} >
             <div styleName="text-center">
               <h1 styleName="login-brand-text">看理想</h1>
             </div>

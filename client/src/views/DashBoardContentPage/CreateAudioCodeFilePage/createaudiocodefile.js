@@ -8,23 +8,19 @@ import ChannelSelect from './step/channelSelect';
 import AudioFileUpload from './step/audioFileUpload';
 import ImageFileUpload from './step/imageFileUpload';
 import * as actionCreators from '../../../actions/projectActions';
+//import AlertAutoDismissable from '../../Alert/alert';
 
+//没有完成错误报告机制，目标为主界面下部中心位置淡出错误提示
 var CreateAudioCodeFilePage = React.createClass({
   getInitialState: function() {
     return {
+      showErrMsg:false,
       step : 1,
-
       stepOneStyle:'warning',
       stepTwoStyle:'default',
       stepTreeStyle:'default',
       stepFourStyle:'default',
-      setpFiveStyle:'default',
-
-      // stepOneFinished:false,
-      // stepTwoFinished:false,
-      // stepTreeFinished:false,
-      // stepFourFinished:false,
-      // stepFiveFinished:false
+      setpFiveStyle:'default'
     }
   },
   componentWillMount: function() {
@@ -32,7 +28,17 @@ var CreateAudioCodeFilePage = React.createClass({
     this.setComponentsState(1);
   },
   componentWillReceiveProps:function(nextProps){
-    this.setComponentsState(nextProps.currentStep);
+    //如果步骤改变进行渲染
+    if(nextProps.currentStep!=this.props.currentStep)
+    {
+      this.setComponentsState(nextProps.currentStep);
+    }
+    else if(nextProps.currentStep==this.props.currentStep)
+    {
+      this.setState({
+        showErrMsg:true
+      })
+    }
   },
   setComponentsState:function(currentStep){
     switch (currentStep) {
@@ -93,10 +99,6 @@ var CreateAudioCodeFilePage = React.createClass({
         break;
     }
   },
-  submitProjectName:function(projectName){
-    //this.props.actions.createProjectName(projectName,this.state.step,this.props.token);
-    //this.setComponentsState(2)
-  },
   submitCategorySelect:function(){
     //this.setComponentsState(3)
   },
@@ -117,7 +119,7 @@ var CreateAudioCodeFilePage = React.createClass({
   showStep: function() {
     switch (this.state.step) {
       case 1:
-        return <ProjectNameCreate {...this.props} submitProjectName={this.submitProjectName} />
+        return <ProjectNameCreate {...this.props}  />
       case 2:
         return <CategorySelect {...this.props} submitCategorySelect={this.submitCategorySelect} />
       case 3:
@@ -130,6 +132,7 @@ var CreateAudioCodeFilePage = React.createClass({
   },
   render:function(){
     return(
+      <div>
       <Panel header='创建音码文件向导' >
         <Grid>
           <Row>
@@ -157,6 +160,7 @@ var CreateAudioCodeFilePage = React.createClass({
           </Row>
         </Grid>
       </Panel>
+      </div>
     )
   }
 });

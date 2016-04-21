@@ -50,7 +50,7 @@ var DashBoardLayout = React.createClass({
                 <Nav pullRight onSelect={this.headerBarHandleSelect}>
                   <NavDropdown title={envelopeGlyph} id="nav-dropdown-message">
                     <MenuItem eventKey="header-message-item-all">
-                      <strong>读所有信息</strong> <i styleName="fa fa-angle-right"></i>
+                      <strong>读所有信息</strong> <Glyphicon glyph="menu-right" />
                     </MenuItem>
                   </NavDropdown>
                   <NavDropdown title={userGlyph} id="nav-dropdown-user" >

@@ -74,7 +74,7 @@ var RegisterPage = React.createClass({
     return(
       <Grid styleName="register-box">
         <Row>
-          <Col md={4} mdOffset={4}>
+          <Col md={12}>
           <div styleName="text-center">
             <h1 styleName="register-brand-text">看理想</h1>
           </div>

@@ -40,7 +40,7 @@ export function createProjectName(name,currentStep,token){
             'Content-Type': 'application/json',
             'Authorization': `${token}`
         },
-        body: JSON.stringify({name: name,step:currentStep})
+        body: JSON.stringify({name: name,currentStep:currentStep})
       }
     )
     .then(checkHttpStatus)
@@ -65,3 +65,7 @@ export function createProjectName(name,currentStep,token){
     })
   }
 };
+
+export function getProjectById(id){
+  
+}

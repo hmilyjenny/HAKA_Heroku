@@ -2,20 +2,28 @@ import React from 'react';
 import {Alert,Fade,Button} from "react-bootstrap";
 import './css/alert.css'
 
-const AlertAutoDismissable = React.createClass({
-  getInitialState() {
+var AlertAutoDismissable = React.createClass({
+  getInitialState:function() {
     return {
-      alertVisible: true
+      alertVisible: true,
+      msg:'',
+      style:'danger'
     };
   },
-
-  render() {
+  componentWillReceiveProps:function(nextProps){
+    // this.setState({
+    //   alertVisible:nextProps.isShow,
+    //   msg:nextProps.msg,
+    //   style:nextProps.style||'danger'
+    // });
+  },
+  render:function(){
     if (this.state.alertVisible) {
       return (
-        <div className="alert">
-        <Alert bsStyle="danger" onDismiss={this.handleAlertDismiss} dismissAfter={3000} >
-          <h4>Oh snap! You got an error!</h4>
-          <p>But this will hide after 2 seconds.</p>
+        <div>
+        <Alert bsStyle={this.state.style} onDismiss={this.handleAlertDismiss} dismissAfter={3000} >
+          <h4>提示!</h4>
+          <p>{this.state.msg}</p>
         </Alert>
         </div>
       );

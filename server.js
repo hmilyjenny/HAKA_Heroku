@@ -33,6 +33,7 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
 
 import auth from './api/routes/auth.routes';
 import project from './api/routes/project.routes';
+import system from './api/routes/system.routes';
 //import upload from './api/routes/upload.routes';
 import passport from 'passport';
 import {tokenCheck} from './api/utils/passport_jwt';
@@ -43,11 +44,14 @@ app.use(express.static(__dirname + "/public"));
 app.use(passport.initialize());
 tokenCheck(passport);
 
+app.use('/api/auth', auth);
+app.use('/api/project',project);
+app.use('/api/system',system);
+
 app.get('*', function (request, response){
   response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 })
-app.use('/api/auth', auth);
-app.use('api/project',project);
+
 //app.use('/api/upload',upload);
 
 // start app
