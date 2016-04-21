@@ -1,6 +1,6 @@
 import React,{PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
-import { Navbar,Nav,NavItem,Grid,Row,Col,NavDropdown,Glyphicon} from 'react-bootstrap';
+import { Navbar,Nav,NavItem,Grid,Row,Col,NavDropdown,Glyphicon,Clearfix} from 'react-bootstrap';
 import {Link} from 'react-router';
 import styles from './css/landing-page.css';
 import ipadImg from './img/ipad.png';
@@ -52,6 +52,7 @@ var LandingPage = React.createClass({
             <Row>
               <Col lg={5} sm={6}>
                 <hr styleName="section-heading-spacer" />
+                <Clearfix><div></div></Clearfix>
                 <h2 styleName="section-heading">
                   Death to the Stock Photo:
                   <br />Special Thanks
@@ -65,7 +66,7 @@ var LandingPage = React.createClass({
                 </p>
               </Col>
               <Col lg={5} lgOffset={2} sm={6}>
-                  <img  src={ipadImg} alt="" responsive />
+                  <img  styleName="img-responsive" src={ipadImg} alt="" responsive={true} />
               </Col>
             </Row>
           </Grid>
@@ -75,13 +76,14 @@ var LandingPage = React.createClass({
               <Row>
                   <Col lg={5} lgOffset={1} smPush={6} sm={6}>
                       <hr styleName="section-heading-spacer" />
+                      <Clearfix><div></div></Clearfix>
                       <h2 styleName="section-heading">3D Device Mockups<br />by PSDCovers</h2>
                       <p styleName="lead">
                         Turn your 2D designs into high quality, 3D product shots in seconds using free Photoshop actions by PSDCovers! Visit their website to download some of their awesome, free photoshop actions!
                       </p>
                   </Col>
                   <Col lg={5} smPull={6} sm={6} >
-                      <img src={dogImg} alt="" responsive />
+                      <img styleName="img-responsive" src={dogImg} alt="" responsive={true} />
                   </Col>
               </Row>
           </Grid>
@@ -91,13 +93,14 @@ var LandingPage = React.createClass({
               <Row>
                   <Col lg={5} sm={5}>
                       <hr styleName="section-heading-spacer" />
+                      <Clearfix><div></div></Clearfix>
                       <h2 styleName="section-heading">Google Web Fonts and<br />Font Awesome Icons</h2>
                       <p styleName="lead">
                         This template features the 'Lato' font, part of the Google Web Font library, as well as icons from Font Awesome.
                       </p>
                   </Col>
                   <Col lg={5} lgOffset={2} sm={6} >
-                      <img  src={phoneImg} alt="" responsive/>
+                      <img  styleName="img-responsive" src={phoneImg} alt="" responsive/>
                   </Col>
               </Row>
           </Grid>
@@ -118,7 +121,7 @@ var LandingPage = React.createClass({
           <Grid>
               <Row>
                 <Col lg={12} >
-                    <ul>
+                    <ul styleName="list-inline">
                         <li>&sdot;</li>
                         <li>
                             <a href="#">关于</a>
@@ -132,7 +135,7 @@ var LandingPage = React.createClass({
                             <a href="#">联系我们</a>
                         </li>
                     </ul>
-                    <p styleName="copyright">Copyright &copy; Your Company 2016. All Rights Reserved</p>
+                    <p styleName="copyright  text-muted small">Copyright &copy; Your Company 2016. All Rights Reserved</p>
                 </Col>
               </Row>
           </Grid>
