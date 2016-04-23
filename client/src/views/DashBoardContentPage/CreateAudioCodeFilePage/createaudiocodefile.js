@@ -8,6 +8,7 @@ import ChannelSelect from './step/channelSelect';
 import AudioFileUpload from './step/audioFileUpload';
 import ImageFileUpload from './step/imageFileUpload';
 import * as actionCreators from '../../../actions/projectActions';
+//import LoadingIndicatior from '../../../components/LoadingIndicator';
 //import AlertAutoDismissable from '../../Alert/alert';
 
 //没有完成错误报告机制，目标为主界面下部中心位置淡出错误提示
@@ -28,6 +29,7 @@ var CreateAudioCodeFilePage = React.createClass({
     this.setComponentsState(1);
   },
   componentWillReceiveProps:function(nextProps){
+    //console.log('step 1')
     //如果步骤改变进行渲染
     if(nextProps.currentStep!=this.props.currentStep)
     {
@@ -99,35 +101,18 @@ var CreateAudioCodeFilePage = React.createClass({
         break;
     }
   },
-  submitCategorySelect:function(){
-    //this.setComponentsState(3)
-  },
-  submitChannelSelect:function(){
-    //this.setComponentsState(4)
-  },
-  submitAudioFileUpload:function(){
-    //this.setComponentsState(5)
-  },
-  submitImageFileUpload:function(){
-    this.setState(
-      {
-        stepFiveStyle:'success',
-        // stepFiveFinished:true
-      }
-    )
-  },
   showStep: function() {
     switch (this.state.step) {
       case 1:
         return <ProjectNameCreate {...this.props}  />
       case 2:
-        return <CategorySelect {...this.props} submitCategorySelect={this.submitCategorySelect} />
+        return <CategorySelect {...this.props} />
       case 3:
-        return <ChannelSelect {...this.props} submitChannelSelect={this.submitChannelSelect} />
+        return <ChannelSelect {...this.props}  />
       case 4:
-        return <AudioFileUpload {...this.props} submitAudioFileUpload={this.submitAudioFileUpload} />
+        return <AudioFileUpload {...this.props}  />
       case 5:
-        return <ImageFileUpload {...this.props} submitImageFileUpload={this.submitImageFileUpload} />
+        return <ImageFileUpload {...this.props} />
     }
   },
   render:function(){
@@ -165,13 +150,13 @@ var CreateAudioCodeFilePage = React.createClass({
   }
 });
 const mapStateToProps = (state) => ({
-  projectName   : state.project.projectName,
-  category :  state.project.category,
-  channels:  state.project.channels,
-  audioFile:  state.project.audioFile,
-  imageFiles: state.project.imageFiles,
-  isSaving: state.project.isSaving,
-  statusText      : state.project.statusText,
+  // projectName   : state.project.projectName,
+  // category :  state.project.category,
+  // channels:  state.project.channels,
+  // audioFile:  state.project.audioFile,
+  // imageFiles: state.project.imageFiles,
+  // isSaving: state.project.isSaving,
+  // statusText      : state.project.statusText,
   currentStep:       state.project.step
 });
 

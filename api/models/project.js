@@ -10,13 +10,13 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 var channel = new Schema({
-  name: {type:String},
-  code: {type:String}
+  channelName: {type:String},
+  channelCode: {type:String}
 });
 
 var category = new Schema({
-  name: {type:String},//名称
-  code: {type:String}//编码
+  categoryName: {type:String},//名称
+  categoryCode: {type:String}//编码
 });
 
 var audioFile = new Schema({
@@ -35,9 +35,9 @@ var imageFile = new Schema({
 const tbProjectSchema = new Schema({
   _user:{ type: Schema.ObjectId, ref: 'Tb_User',required:true },//ref
   name :{type:String,required:true,unique:true},
-  category:{type:category,required:false}, //embed
+  categories:{type:[category],required:false},//embed
   channels:{type:[channel],required:false},//embed
-  audioFile:{type:audioFile,required:false},//embed 5分钟左右128kbps大概是5兆左右
+  audioFile:{type:[audioFile],required:false},//embed 5分钟左右128kbps大概是5兆左右
   imageFiles:{type:[imageFile],required:false}, //emded
   step: {type: Number,default: 1,required: false },//1为添加了项目名称2为添加了项目品类3为添加了渠道4为上传了音频文件5为上传了图片文件
   //unfinished为完成创建音码文件所需上传的文件没有上传完成状态，finished为完成文件上传后状态，release为发布状态

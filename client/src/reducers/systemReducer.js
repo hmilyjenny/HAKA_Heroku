@@ -2,7 +2,7 @@ import {GET_CATEGORIES_SUCCESS,GET_CATEGORIES_FAILURE} from '../constants/system
 
 
 const initialState ={
-  categories:[]
+  categories:[],
   statusText:''
 };
 
@@ -20,7 +20,7 @@ const systemReducer = (state = initialState,action) =>{
         statusText:action.payload.statusText
       });
       break;
-    default:
+    default: return state;
 
   }
 };

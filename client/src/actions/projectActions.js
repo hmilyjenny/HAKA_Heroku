@@ -30,7 +30,7 @@ export function saveProjectNameSuccess(name,currentStep){
   }
 };
 export function createProjectName(name,currentStep,token){
-  return function(dispatch) {
+  return function(dispatch,getState) {
     dispatch(saveProjectContentRequest());
     return fetch('/api/project/createProjectName',{
         method: 'post',
@@ -38,7 +38,7 @@ export function createProjectName(name,currentStep,token){
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': `${token}`
+            'Authorization': `${getState().auth.token}`
         },
         body: JSON.stringify({name: name,currentStep:currentStep})
       }
@@ -67,5 +67,5 @@ export function createProjectName(name,currentStep,token){
 };
 
 export function getProjectById(id){
-  
+
 }
