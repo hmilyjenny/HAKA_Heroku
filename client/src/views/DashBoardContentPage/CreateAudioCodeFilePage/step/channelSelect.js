@@ -1,22 +1,44 @@
 import React from 'react';
-import {Button,Input,Panel,Well} from "react-bootstrap";
+import { bindActionCreators } from 'redux';
+//import LinkedStateMixin from 'react-addons-linked-state-mixin';
+import { connect } from 'react-redux';
+import {Button,Input,Panel,Well,Form,Radio} from "react-bootstrap";
+import { getCategories }  from '../../../../actions/systemActions';
+import { savaProjectCategory } from '../../../../actions/projectActions';
+import LoadingIndicatior from '../../../../components/LoadingIndicator';
+
 
 var ChannelSelect = React.createClass({
+  getInitialState: function() {
+          return {
+              loading: true,
+              selectChannels:null
+          }
+  },
   render:function(){
+    var _this = this;
+    // var channelItems = _this.props.channels.map(function(channel){
+    //   return(<Input name='channel' type="checkbox" label={channel.name}
+    //   value={channel.code} key={channel._id} />)
+    // });
     return(
       <div>
         <Panel header="选择渠道">
           <Well>
-            <Input type="select" label="渠道选择" placeholder="select" multiple>
-              <option value="select">渠道一</option>
-              <option value="other">渠道二</option>
-            </Input>
+
           </Well>
-          <Button onClick={this.props.submitChannelSelect}>下一步</Button>
+          <Button>下一步</Button>
         </Panel>
       </div>
     )
   }
-})
+});
+const mapStateToProps = (state) => ({
+  channels   : state.auth.channels,
+  //systemStatusText: state.system.statusText
+  //statusText      : state.project.statusText,
+  //currentStep:       state.project.step
+});
+
 
 export default ChannelSelect

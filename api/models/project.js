@@ -34,8 +34,8 @@ var imageFile = new Schema({
 
 const tbProjectSchema = new Schema({
   _user:{ type: Schema.ObjectId, ref: 'Tb_User',required:true },//ref
-  name :{type:String,required:true,unique:true},
-  categories:{type:[category],required:false},//embed
+  name :{type:String,required:true},
+  category:{type:[category],required:false},//embed
   channels:{type:[channel],required:false},//embed
   audioFile:{type:[audioFile],required:false},//embed 5分钟左右128kbps大概是5兆左右
   imageFiles:{type:[imageFile],required:false}, //emded
@@ -43,6 +43,6 @@ const tbProjectSchema = new Schema({
   //unfinished为完成创建音码文件所需上传的文件没有上传完成状态，finished为完成文件上传后状态，release为发布状态
   state: {type: String,enum: ['unfinished', 'finished', 'release'],default: 'unfinished',required: false },
 },{timestamps:true});
-
-
+//联合索引，保证同用户不能有同一项目名称
+tbProjectSchema.index({ _user: 1, name: 1 }, {unique: true});
 export default mongoose.model('Tb_Project', tbProjectSchema);

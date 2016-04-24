@@ -4,6 +4,7 @@ import  {SAVE_REQUEST,SAVE_FAILURE,PROJECT_NAME_SAVE_SUCCESS,PROJECT_CATEGORY_SA
 
 
 const initialState ={
+  projectId:'',
   projectName:'',
   audioFile:null,
   imageFiles:null,
@@ -31,6 +32,7 @@ const projectReducer = (state = initialState,action) =>{
     case PROJECT_NAME_SAVE_SUCCESS:
       return Object.assign({}, state, {
         projectName:action.payload.projectName,
+        projectId:action.payload.projectId,
         isSaving:false,
         statusText:'项目建立成功',
         step:action.payload.step

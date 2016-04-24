@@ -1,14 +1,15 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
-import LinkedStateMixin from 'react-addons-linked-state-mixin';
+//import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import { connect } from 'react-redux';
 import {Button,Input,Panel,Well,Form,Radio} from "react-bootstrap";
 import { getCategories }  from '../../../../actions/systemActions';
+import { savaProjectCategory } from '../../../../actions/projectActions';
 import LoadingIndicatior from '../../../../components/LoadingIndicator';
 
 
 var CategorySelect = React.createClass({
-  mixins: [LinkedStateMixin],
+  //mixins: [LinkedStateMixin],
   getInitialState: function() {
           return {
               categories: [],
@@ -55,7 +56,9 @@ var CategorySelect = React.createClass({
     }
   },
   nextStep:function(){
-    console.log(this.state.selectCategory);
+    //console.log(this.state.selectCategory);
+    let category = JSON.parse(this.state.selectCategory);
+    this.props.savaProjectCategory(this.props.currentStep,{categoryName:category.name,categoryCode:category.code});
   },
   render:function(){
     return(
@@ -73,6 +76,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getCategoriesActions : bindActionCreators(getCategories, dispatch)
+  getCategoriesActions : bindActionCreators(getCategories, dispatch),
+  savaProjectCategory : bindActionCreators(savaProjectCategory,dispatch)
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CategorySelect);

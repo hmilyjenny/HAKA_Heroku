@@ -11,6 +11,7 @@ const initialState = {
     isAuthenticating: false,
     statusText: null,
     role:null,
+    channels:[],
     expire:false
 };
 
@@ -47,6 +48,7 @@ const authReducer = (state = initialState,action) =>{
         'token':action.payload.token,
         'userName': jwtDecode(action.payload.token).email,
         'role':jwtDecode(action.payload.token).role,
+        'channels':jwtDecode(action.payload.token).channels,
         'statusText':'您已经成功登陆'
       });
       break;
@@ -57,6 +59,7 @@ const authReducer = (state = initialState,action) =>{
           'token': null,
           'userName': null,
           'role':null,
+          'channels':[],
           'statusText': action.payload.statusText
       });
       break;
@@ -66,6 +69,7 @@ const authReducer = (state = initialState,action) =>{
          'token': null,
          'userName': null,
          'role':null,
+         channels:[],
          'statusText': '您已经成功退出'
       });
       break;
