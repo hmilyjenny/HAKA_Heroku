@@ -10,6 +10,6 @@ projectRouter.route('/getProjectById').get(ProjectController.getProjectById);
 projectRouter.route('/getProjectByName').get(ProjectController.getProjectByName);
 projectRouter.route('/createProjectName').post(ProjectController.createProjectName);
 projectRouter.route('/createProjectCategories').post(ProjectController.createProjectCategories);
-
+projectRouter.route('/createProjectChannels').post(ProjectController.createProjectChannels);
 
 export default projectRouter

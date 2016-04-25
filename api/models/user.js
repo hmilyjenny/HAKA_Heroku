@@ -3,8 +3,8 @@ import bcrypt from 'bcrypt';
 
 const Schema = mongoose.Schema;
 var channel = new Schema({
-  name: {type:String},//名称
-  code: {type:String}//编码
+  channelName: {type:String},//名称
+  channelCode: {type:String}//编码
 });
 const tbUserSchema = new Schema({
   email: {type: String,lowercase: true,unique: true,required: true},

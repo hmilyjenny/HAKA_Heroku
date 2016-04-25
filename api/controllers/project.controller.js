@@ -73,3 +73,22 @@ export function createProjectCategories(req,res){
     );
   }
 }
+export function  createProjectChannels(req,res) {
+  if(!req.body.channels||!req.body.currentStep){
+    res.status(201).json({errCode:40001,errMsg:'项目渠道或当前步骤',data:{}});
+  }else{
+    //let category = JSON.parse(req.body.category);
+    let channels = req.body.channels;
+    Tb_Project.findByIdAndUpdate(req.body.projectId,
+      {channels:channels,step:parseInt(req.body.currentStep)+1},{new:true},
+      function(err,newProject){
+        if (err) {
+          return res.status(201).json({errCode:40002,errMsg:'项目',data:{error:err}});
+        }
+        else {
+          res.status(201).json({errCode:0,errMsg:'',data:{newProject}});//考虑节省带宽问题是否不需要返回当前项目
+        }
+      }
+    );
+  }
+}

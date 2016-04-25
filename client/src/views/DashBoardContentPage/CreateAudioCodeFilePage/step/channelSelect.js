@@ -3,42 +3,61 @@ import { bindActionCreators } from 'redux';
 //import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import { connect } from 'react-redux';
 import {Button,Input,Panel,Well,Form,Radio} from "react-bootstrap";
-import { getCategories }  from '../../../../actions/systemActions';
-import { savaProjectCategory } from '../../../../actions/projectActions';
-import LoadingIndicatior from '../../../../components/LoadingIndicator';
+import { savaProjectChannels } from '../../../../actions/projectActions';
+//import LoadingIndicatior from '../../../../components/LoadingIndicator';
 
 
 var ChannelSelect = React.createClass({
   getInitialState: function() {
           return {
-              loading: true,
-              selectChannels:null
+              selectChannels:[]
           }
+  },
+  changeSelection:function(e){
+    if(e.target.checked)
+    {
+      var selectChannel = JSON.parse(e.target.value);
+      this.setState({
+        selectChannels:this.state.selectChannels.concat(selectChannel)
+      });
+    }
+    else
+    {
+      var unSelectChannel = JSON.parse(e.target.value);
+      this.setState({
+        selectChannels:this.state.selectChannels.filter(function(channel){
+          return channel._id!=unSelectChannel._id;
+        })
+      });
+    }
+  },
+  nextStep:function(){
+    //console.log(this.state.selectChannels);
+    this.props.savaProjectChannels(this.props.currentStep,this.state.selectChannels);
   },
   render:function(){
     var _this = this;
-    // var channelItems = _this.props.channels.map(function(channel){
-    //   return(<Input name='channel' type="checkbox" label={channel.name}
-    //   value={channel.code} key={channel._id} />)
-    // });
+    var channelItems = _this.props.channels.map(function(channel){
+        return(<Input name='channel' type="checkbox" label={channel.channelName}
+        value={JSON.stringify(channel)} key={channel._id} onChange={_this.changeSelection}/>)
+      });
     return(
       <div>
         <Panel header="选择渠道">
           <Well>
-
+          {channelItems}
           </Well>
-          <Button>下一步</Button>
+          <Button onClick={_this.nextStep}>下一步</Button>
         </Panel>
       </div>
     )
   }
 });
 const mapStateToProps = (state) => ({
-  channels   : state.auth.channels,
-  //systemStatusText: state.system.statusText
-  //statusText      : state.project.statusText,
-  //currentStep:       state.project.step
+  channels   : state.auth.channels
+});
+const mapDispatchToProps = (dispatch) => ({
+  savaProjectChannels : bindActionCreators(savaProjectChannels,dispatch)
 });
 
-
-export default ChannelSelect
+export default connect(mapStateToProps, mapDispatchToProps)(ChannelSelect);

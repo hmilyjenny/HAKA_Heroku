@@ -14,7 +14,8 @@ export default function () {
       psw = hash;
     });
     const user = new Tb_User(
-      { email: 'hmily@gmail.com', password: psw,channels:[{name:'渠道1',code:'0001'},{name:'渠道2',code:'0002'},{name:'渠道3',code:'0003'}]}
+      { email: 'hmily@gmail.com', password: psw,channels:[{channelName:'渠道1',channelCode:'0001'},
+        {channelName:'渠道2',channelCode:'0002'},{channelName:'渠道3',channelCode:'0003'}]}
     );
 
     Tb_User.create(user, (error) => {

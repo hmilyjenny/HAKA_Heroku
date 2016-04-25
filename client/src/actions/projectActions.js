@@ -121,3 +121,51 @@ export function savaProjectCategory(currentStep,category)
     })
   }
 };
+//存储project渠道成功
+export function saveProjectChannelsSuccess(newProject){
+  return{
+    type:PROJECT_CHANNEL_SAVE_SUCCESS,
+    payload:{
+      channels:newProject.channels,
+      step:newProject.step
+    }
+  }
+};
+//存储project渠道
+export function savaProjectChannels(currentStep,channels){
+  return function(dispatch,getState){
+    dispatch(saveProjectContentRequest());
+    return fetch('/api/project/createProjectChannels',{
+        method: 'post',
+        credentials: 'include',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `${getState().auth.token}`
+        },
+        body: JSON.stringify({projectId:getState().project.projectId,
+          channels:channels,currentStep:currentStep})
+      }
+    )
+    .then(checkHttpStatus)
+    .then(parseJSON)
+    .then(response =>{
+      if(response.errCode==0){
+        dispatch(saveProjectChannelsSuccess(response.data.newProject));
+      }else{//这应该在重构中提出方法来
+        dispatch(saveProjectContentFailure({
+          response:{
+            status:response.errCode,
+            statusText:formatErrMsg(response)
+          }
+        },currentStep));
+      }
+    })
+    .catch(error => {
+          error.response.text().then(text=>{
+            error.response={status:error.response.status,statusText:text}
+            dispatch(saveProjectContentFailure(error,currentStep));
+          });
+    })
+  }
+};
