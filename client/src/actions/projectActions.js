@@ -169,3 +169,109 @@ export function savaProjectChannels(currentStep,channels){
     })
   }
 };
+//存储project音频文件成功
+export function saveProjectAudioFileSuccess(newProject){
+  return{
+    type:PROJECT_AUDIO_SAVE_SUCCESS,
+    payload:{
+      audioFile:newProject.audioFile,
+      step:newProject.step
+    }
+  }
+};
+
+//存储project音频文件
+export function savaProjectAudioFile(currentStep,file){
+  return function(dispatch,getState){
+    dispatch(saveProjectContentRequest());
+    const data = new FormData();
+    data.append('currentStep',currentStep);
+    data.append('projectId',getState().project.projectId);
+    data.append('file',file);
+    return fetch('/api/project/createProjectAudioFile',{
+        method: 'post',
+        credentials: 'include',
+        headers: {
+            'Accept': 'application/json',
+            //'Content-Type': 'multipart/form-data',
+            'Authorization': `${getState().auth.token}`
+        },
+        body: data
+      }
+    )
+    .then(checkHttpStatus)
+    .then(parseJSON)
+    .then(response =>{
+      if(response.errCode==0){
+        dispatch(saveProjectAudioFileSuccess(response.data.newProject));
+      }else{//这应该在重构中提出方法来
+        dispatch(saveProjectContentFailure({
+          response:{
+            status:response.errCode,
+            statusText:formatErrMsg(response)
+          }
+        },currentStep));
+      }
+    })
+    .catch(error => {
+          error.response.text().then(text=>{
+            error.response={status:error.response.status,statusText:text}
+            dispatch(saveProjectContentFailure(error,currentStep));
+          });
+    })
+  }
+};
+//存储project图像文件成功
+export function saveProjectImageFileSuccess(newProject){
+  return{
+    type:PROJECT_IMAGE_SAVE_SUCCESS,
+    payload:{
+      imageFiles:newProject.imageFiles,
+      step:newProject.step
+    }
+  }
+};
+//存储project图像文件
+export function savaProjectImageFiles(currentStep,files){
+  return function(dispatch,getState){
+    dispatch(saveProjectContentRequest());
+    const data = new FormData();
+    data.append('currentStep',currentStep);
+    data.append('projectId',getState().project.projectId);
+    files.forEach(function(file){
+      data.append('file',file);
+    });
+    //data.append('files',files);
+    return fetch('/api/project/createProjectImageFiles',{
+        method: 'post',
+        credentials: 'include',
+        headers: {
+            'Accept': 'application/json',
+            //'Content-Type': 'multipart/form-data',
+            'Authorization': `${getState().auth.token}`
+        },
+        body: data
+      }
+    )
+    .then(checkHttpStatus)
+    .then(parseJSON)
+    .then(response =>{
+      if(response.errCode==0){
+        dispatch(saveProjectImageFileSuccess(response.data.newProject));
+      }else{//这应该在重构中提出方法来
+        dispatch(saveProjectContentFailure({
+          response:{
+            status:response.errCode,
+            statusText:formatErrMsg(response)
+          }
+        },currentStep));
+      }
+    })
+    .catch(error => {
+          error.response.text().then(text=>{
+            error.response={status:error.response.status,statusText:text}
+            dispatch(saveProjectContentFailure(error,currentStep));
+          });
+    })
+  }
+};

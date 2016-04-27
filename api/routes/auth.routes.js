@@ -8,9 +8,9 @@ import * as AuthController from '../controllers/auth.controller';
 *
 */
 const authRouter = new Router();
-authRouter.route('/signIn').post(AuthController.signIn);
-authRouter.route('/register').post(AuthController.register);
-authRouter.route('/allUser').get(AuthController.GetAllUser);
+authRouter.post('/signIn',AuthController.signIn);
+authRouter.post('/register',AuthController.register);
+authRouter.get('/allUser',AuthController.GetAllUser);
 
 
 

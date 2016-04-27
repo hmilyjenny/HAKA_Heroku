@@ -23,12 +23,14 @@ var audioFile = new Schema({
   // name:{type:String},
   // content:{type:Buffer},
   audioId:{type:Schema.ObjectId},//Gridfs的id
-  track:{type:Number}
+  audioName:{type:String},
+  track:{type:Number}//没用上，时长
 });
 //mongoose.model('Tb_AudioFile', audioSchema);
 
 var imageFile = new Schema({
-  imageId:{type:Schema.ObjectId}//Gridfs的id
+  imageId:{type:Schema.ObjectId},//Gridfs的id
+  imageName:{type:String}
 });
 //mongoose.model('Tb_ImageFile',imageSchema);
 

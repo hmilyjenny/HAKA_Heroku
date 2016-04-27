@@ -1,20 +1,25 @@
 import React from 'react';
 import {Button,Input,Glyphicon} from "react-bootstrap";
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { savaProjectAudioFile } from '../../../../actions/projectActions';
 import '../css/create-audiocode.css';
 
 var AudioFileUpload = React.createClass({
-  handleFile:function(e){
-    var self = this;
-    var reader = new FileReader();
-    var file = e.target.files[0];
-
-    reader.onload = function(upload) {
-      self.setState({
-        data_uri: upload.target.result,
-      });
-    }
-
-    reader.readAsDataURL(file);
+  getInitialState: function() {
+          return {
+              file:null
+          }
+  },
+  nextStep:function(e){
+    e.preventDefault();
+    //console.log(this.state.file);
+    this.props.savaProjectAudioFile(this.props.currentStep,this.state.file);
+  },
+  changeSelection:function(e){
+    this.setState({
+      file:e.target.files[0]
+    });
   },
   render:function(){
     const glyphFile = <Button><Glyphicon glyph="folder-open" /></Button>
@@ -22,12 +27,17 @@ var AudioFileUpload = React.createClass({
     return(
       <div className="audioUpload">
         <br/>
-        <Input type="file" bsSize="large" label={uploadLabel} ></Input>
+        <form>
+        <Input name="file" type="file" accept=".mp3" bsSize="large" label={uploadLabel} onChange={this.changeSelection} ></Input>
         <br/>
-        <Button onClick={this.props.submitAudioFileUpload}><h5>上&nbsp;传</h5></Button>
+        <Button type="submit" onClick={this.nextStep}>上传</Button>
+        </form>
       </div>
     )
   }
-})
+});
+const mapDispatchToProps = (dispatch) => ({
+  savaProjectAudioFile : bindActionCreators(savaProjectAudioFile,dispatch)
+});
 
-export default AudioFileUpload
+export default connect(null, mapDispatchToProps)(AudioFileUpload);

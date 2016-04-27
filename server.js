@@ -1,5 +1,6 @@
 import Express from 'express';
 import mongoose from 'mongoose';
+import Grid from 'gridfs-stream';
 import bodyParser from 'body-parser';
 import path from 'path';
 
@@ -22,11 +23,18 @@ if (process.env.NODE_ENV !== 'production') {
 // MongoDB Connection
 import serverConfig from './config';
 import dummyData from './dummyData';
+
 mongoose.connect(serverConfig.mongoURL, (error) => {
   if (error) {
     console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
     throw error;
   }
+  var conn = mongoose.connection;
+  Grid.mongo = mongoose.mongo;
+  conn.once('open', function () {
+    var gfs = Grid(conn.db);
+    app.set('gridfs', gfs);
+  });
   // feed some dummy data in DB.
   dummyData();
 });

@@ -8,6 +8,10 @@
     "start": "node index.js",
     "build": "node_modules/.bin/webpack"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hmilyjeny/HAKA_Heroku.git"
+  },
   "keywords": [
     "react",
     "express"

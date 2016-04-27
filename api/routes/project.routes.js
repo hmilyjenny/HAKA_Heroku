@@ -2,14 +2,18 @@ import { Router } from 'express';
 import passport from 'passport';
 import * as ProjectController from '../controllers/project.controller';
 
+var multer  = require('multer');
+var upload = multer({ dest: 'uploads/' })
 
 const projectRouter = new Router();
 projectRouter.use(passport.authenticate('jwt', { session: false}));//经过passport-jwt中间件
 
-projectRouter.route('/getProjectById').get(ProjectController.getProjectById);
-projectRouter.route('/getProjectByName').get(ProjectController.getProjectByName);
-projectRouter.route('/createProjectName').post(ProjectController.createProjectName);
-projectRouter.route('/createProjectCategories').post(ProjectController.createProjectCategories);
-projectRouter.route('/createProjectChannels').post(ProjectController.createProjectChannels);
+projectRouter.get('/getProjectById',ProjectController.getProjectById);
+projectRouter.get('/getProjectByName',ProjectController.getProjectByName);
+projectRouter.post('/createProjectName',ProjectController.createProjectName);
+projectRouter.post('/createProjectCategories',ProjectController.createProjectCategories);
+projectRouter.post('/createProjectChannels',ProjectController.createProjectChannels);
+projectRouter.post('/createProjectAudioFile',upload.single('file'),ProjectController.createProjectAudioFile);
+projectRouter.post('/createProjectImageFiles',upload.array('file'),ProjectController.createProjectImageFiles);
 
 export default projectRouter
