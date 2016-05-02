@@ -25,7 +25,7 @@ var CreateAudioCodeFilePage = React.createClass({
     }
   },
   componentWillMount: function() {
-    //此处应通过action取当前项目所完成步骤情况
+    //TODO 此处应通过action取当前项目所完成步骤情况
     this.setComponentsState(1);
   },
   componentWillReceiveProps:function(nextProps){

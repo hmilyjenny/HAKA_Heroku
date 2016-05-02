@@ -41,9 +41,16 @@ const tbProjectSchema = new Schema({
   channels:{type:[channel],required:false},//embed
   audioFile:{type:[audioFile],required:false},//embed 5分钟左右128kbps大概是5兆左右
   imageFiles:{type:[imageFile],required:false}, //emded
-  step: {type: Number,default: 1,required: false },//1为添加了项目名称2为添加了项目品类3为添加了渠道4为上传了音频文件5为上传了图片文件
-  //unfinished为完成创建音码文件所需上传的文件没有上传完成状态，finished为完成文件上传后状态，release为发布状态
+  step: {type: Number,default: 1,required: false },
+  /*1为添加了项目名称
+   *2为添加了项目品类
+   *3为添加了渠道
+   *4为上传了音频文件
+   *5为上传了图片文件*/
   state: {type: String,enum: ['unfinished', 'finished', 'release'],default: 'unfinished',required: false },
+  /*unfinished为完成创建音码文件所需上传的文件没有上传完成状态，
+   *finished为完成文件上传后状态，
+   *release为发布状态*/
 },{timestamps:true});
 //联合索引，保证同用户不能有同一项目名称
 tbProjectSchema.index({ _user: 1, name: 1 }, {unique: true});

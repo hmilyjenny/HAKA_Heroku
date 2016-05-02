@@ -25,6 +25,8 @@ var DashBoardLayout = React.createClass({
       this.refs.cc.bundle('ProjectsPage');
     }else if(selectedKey==2){
       this.refs.cc.bundle('CreateAudioCodeFilePage');
+    }else if(selectedKey==5){
+      this.refs.cc.bundle('CreateChannelsPage');
     }
   },
   headerBarHandleSelect(event,selectedKey){
@@ -78,7 +80,7 @@ var DashBoardLayout = React.createClass({
                       <NavItem eventKey={4} title="Item" onClick={this.collapseSubItem}><Glyphicon glyph="wrench" />&nbsp;项目共有信息设定<Glyphicon glyph="chevron-right" /></NavItem>
                       <Collapse in={this.state.isOpenSubItem}>
                         <div>
-                          <NavItem eventKey={5} title="Item" ><Glyphicon glyph="bookmark" />&nbsp;&nbsp;&nbsp;渠道</NavItem>
+                          <NavItem eventKey={5} title="Item" onSelect={this.handleSelect} ><Glyphicon glyph="bookmark" />&nbsp;&nbsp;&nbsp;渠道</NavItem>
                           <NavItem eventKey={6} title="Item" ><Glyphicon glyph="bookmark" />&nbsp;&nbsp;&nbsp;品类</NavItem>
                         </div>
                       </Collapse>
