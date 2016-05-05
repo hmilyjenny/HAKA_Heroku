@@ -26,7 +26,7 @@ var ThumbnailsImgsPage = React.createClass({
         let imgList = this.props.imglist.map((img)=> {
             // let blob = new Blob(img.imageBuffer.data,{ "type" : "image\/png" });
             // {window.URL.createObjectURL(blob)}
-            let tmpimgurl = "http://localhost:8000/api/projectnotoken/getFileThumbnails/" + this.props.projectID + "/" + img._id;
+            let tmpimgurl = "/api/project/getFileThumbnails/" + this.props.projectID + "/" + img._id;
             return (
                 <div key={img.imageId} style={{height:"80px",width:"80px",float:"left"}}>
                     <a href="javascript:;" onClick={this.btnOpen}>

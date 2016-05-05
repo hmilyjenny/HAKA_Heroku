@@ -3,7 +3,7 @@ import {Button, Grid, Row, Col, Thumbnail, Image} from 'react-bootstrap';
 import Dropzone from 'react-dropzone'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {savaProjectImageFiles} from '../../../../actions/projectActions';
+import {savaProjectImageFiles, setProjectStep} from '../../../../actions/projectActions';
 //import '../css/filepicker.css';
 //import '../css/dropzone.css'
 
@@ -29,8 +29,9 @@ var ImageFileUpload = React.createClass({
         //console.log(this.state.file);
         this.props.savaProjectImageFiles(this.props.currentStep, this.state.files);
     },
-    EditAudio: function () {
-
+    EditAudio: function (e) {
+        e.preventDefault();
+        this.props.setProjectStepActions(this.props.currentStep);
     },
     render: function () {
         var imageItems = this.state.files.map(function (file) {
@@ -91,6 +92,7 @@ var ImageFileUpload = React.createClass({
     }
 });
 const mapDispatchToProps = (dispatch) => ({
-    savaProjectImageFiles: bindActionCreators(savaProjectImageFiles, dispatch)
+    savaProjectImageFiles: bindActionCreators(savaProjectImageFiles, dispatch),
+    setProjectStepActions: bindActionCreators(setProjectStep, dispatch)
 });
 export default connect(null, mapDispatchToProps)(ImageFileUpload);

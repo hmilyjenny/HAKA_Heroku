@@ -1,6 +1,7 @@
 import React from 'react';
 import SoundProgressComponent from './components/soundProgressComponent';
 import SoundPlayButton from './components/soundPlayButton';
+import ThumbnailsImgsPage from '../../ImagesListPage/thumbnailsimgspage';
 
 var Howl = require('howler').Howl;
 
@@ -58,23 +59,22 @@ var EditAudioCodeFilePage = React.createClass({
       </div>
     )
   },
-
-  onPlayBtnClick:function(){
-    if (this.state.isPlaying && !this.state.isPause) {
-			return;
-		};
-    this.setState({ isPlaying: true, isPause: false });
-    if (!this.howler) {
-			this.initSoundObject();
-		}
-    else{
-      this.howler.play();
-    }
-  },
-  onPauseBtnClick:function(){
-    var isPause = !this.state.isPause;
-		this.setState({ isPause: isPause });
-    this.howler.pause();
-  },
+    onPlayBtnClick: function () {
+        if (this.state.isPlaying && !this.state.isPause) {
+            return;
+        }
+        this.setState({isPlaying: true, isPause: false});
+        if (!this.howler) {
+            this.initSoundObject();
+        }
+        else {
+            this.howler.play();
+        }
+    },
+    onPauseBtnClick: function () {
+        var isPause = !this.state.isPause;
+        this.setState({isPause: isPause});
+        this.howler.pause();
+    },
 });
-export default EditAudioCodeFilePage;
+export default EditAudioCodeFilePage

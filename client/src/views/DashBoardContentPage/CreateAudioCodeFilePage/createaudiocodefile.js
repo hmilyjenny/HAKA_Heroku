@@ -7,6 +7,7 @@ import CategorySelect from './step/categorySelect';
 import ChannelSelect from './step/channelSelect';
 import AudioFileUpload from './step/audioFileUpload';
 import ImageFileUpload from './step/imageFileUpload';
+import EditAudioCodeFilePage from '../EditAudioCodeFilePage/editAudioCodeFilePage';
 import * as actionCreators from '../../../actions/projectActions';
 //import LoadingIndicatior from '../../../components/LoadingIndicator';
 //import AlertAutoDismissable from '../../Alert/alert';
@@ -21,7 +22,8 @@ var CreateAudioCodeFilePage = React.createClass({
             stepTwoStyle: 'default',
             stepTreeStyle: 'default',
             stepFourStyle: 'default',
-            setpFiveStyle: 'default'
+            setpFiveStyle: 'default',
+            setpSixStyle: 'default'
         }
     },
     componentWillMount: function () {
@@ -29,7 +31,7 @@ var CreateAudioCodeFilePage = React.createClass({
             this.setComponentsState(1);
         }
         else {
-            this.props.actions.getUnfinishedProject(this.props.projectID);
+            this.props.actions.getProjectById(this.props.projectID);
             this.setComponentsState(this.props.currentStep);
         }
     },
@@ -101,6 +103,18 @@ var CreateAudioCodeFilePage = React.createClass({
                         step: currentStep
                     }
                 )
+            case 6:
+                this.setState(
+                    {
+                        stepOneStyle: 'success',
+                        stepTwoStyle: 'success',
+                        stepTreeStyle: 'success',
+                        stepFourStyle: 'success',
+                        stepFiveStyle: 'success',
+                        setpSixStyle: 'warning',
+                        step: currentStep
+                    }
+                )
                 break;
         }
     },
@@ -116,6 +130,8 @@ var CreateAudioCodeFilePage = React.createClass({
                 return <AudioFileUpload {...this.props}  />
             case 5:
                 return <ImageFileUpload {...this.props} />
+            case 6:
+                return <EditAudioCodeFilePage {...this.props} />
         }
     },
     render: function () {

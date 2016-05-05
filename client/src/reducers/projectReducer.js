@@ -2,7 +2,8 @@ import  {
     SAVE_REQUEST, SAVE_FAILURE, PROJECT_NAME_SAVE_SUCCESS, PROJECT_CATEGORY_SAVE_SUCCESS,
     PROJECT_CHANNEL_SAVE_SUCCESS, PROJECT_AUDIO_SAVE_SUCCESS,
     PROJECT_IMAGE_SAVE_SUCCESS, PROJECT_FINISHED_SUCCESS,
-    PROJECT_UNFINISHED_REQUEST, PROJECT_UNFINISHED_FAILURE, PROJECT_UNFINISHED_SUCCESS
+    PROJECT_GET_PROJECTINFO_REQUEST, PROJECT_GET_PROJECTINFO_FAILURE, PROJECT_GET_PROJECTINFO_SUCCESS,
+    PROJECT_SET_STEP_REQUEST, PROJECT_SET_STEP_FAILURE, PROJECT_SET_STEP_SUCCESS
 } from  '../constants/projectConstants';
 
 
@@ -20,14 +21,16 @@ const initialState = {
 
 const projectReducer = (state = initialState, action) => {
     switch (action.type) {
-        case PROJECT_UNFINISHED_REQUEST:
+        case PROJECT_SET_STEP_REQUEST:
+        case PROJECT_GET_PROJECTINFO_REQUEST:
         case SAVE_REQUEST:
             return Object.assign({}, state, {
                 'isSaving': true,
                 'statusText': null
             });
             break;
-        case PROJECT_UNFINISHED_FAILURE:
+        case PROJECT_SET_STEP_FAILURE:
+        case PROJECT_GET_PROJECTINFO_FAILURE:
         case SAVE_FAILURE:
             return Object.assign({}, state, {
                 'isSaving': false,
@@ -78,16 +81,23 @@ const projectReducer = (state = initialState, action) => {
                 statusText: '项目初始化内容完成'
             });
             break;
-        case PROJECT_UNFINISHED_SUCCESS:
+        case PROJECT_GET_PROJECTINFO_SUCCESS:
             return Object.assign({}, state, {
                 isSaving: false,
-                statusText: '获取未完成项目信息成功',
+                statusText: '获取项目信息成功',
                 projectId: action.payload.projectId,
                 projectName: action.payload.projectName,
                 audioFile: action.payload.audioFile,
                 imageFiles: action.payload.imageFiles,
                 channels: action.payload.channels,
                 category: action.payload.category,
+                step: action.payload.step
+            });
+            break;
+        case PROJECT_SET_STEP_SUCCESS:
+            return Object.assign({}, state, {
+                isSaving: false,
+                statusText: '修改项目步骤信息成功',
                 step: action.payload.step
             });
             break;
