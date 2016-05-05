@@ -30,7 +30,8 @@ var audioFile = new Schema({
 
 var imageFile = new Schema({
   imageId:{type:Schema.ObjectId},//Gridfs的id
-  imageName:{type:String}
+  imageName:{type:String},
+  Thumbnail:{type:Buffer}
 });
 //mongoose.model('Tb_ImageFile',imageSchema);
 

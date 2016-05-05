@@ -6,6 +6,7 @@ var multer  = require('multer');
 var upload = multer({ dest: 'uploads/' })
 
 const projectRouter = new Router();
+projectRouter.get('/getProjectAudioFileByAudioFileId',ProjectController.getProjectAudioFileByAudioFileId);
 projectRouter.use(passport.authenticate('jwt', { session: false}));//经过passport-jwt中间件
 
 projectRouter.get('/getProjectById',ProjectController.getProjectById);
@@ -15,5 +16,6 @@ projectRouter.post('/createProjectCategories',ProjectController.createProjectCat
 projectRouter.post('/createProjectChannels',ProjectController.createProjectChannels);
 projectRouter.post('/createProjectAudioFile',upload.single('file'),ProjectController.createProjectAudioFile);
 projectRouter.post('/createProjectImageFiles',upload.array('file'),ProjectController.createProjectImageFiles);
+
 
 export default projectRouter

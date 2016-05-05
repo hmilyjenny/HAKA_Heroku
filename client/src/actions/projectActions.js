@@ -77,7 +77,7 @@ export function saveProjectCategorySuccess(newProject){
   return{
     type:PROJECT_CATEGORY_SAVE_SUCCESS,
     payload:{
-      category:newProject.categories,
+      category:newProject.category,
       step:newProject.step
     }
   }

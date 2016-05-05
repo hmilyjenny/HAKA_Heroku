@@ -162,3 +162,20 @@ export function createProjectImageFiles(req,res){
     );
   }
 };
+
+export function getProjectAudioFileByAudioFileId(req,res){
+  if(!req.query.audioId){
+    res.status(201).json({errCode:40001,errMsg:'音频文件ID',data:{}});
+  }
+  else{
+    var gridfs =req.app.get("gridfs");
+    var readstream = gridfs.createReadStream({_id: req.query.audioId});
+    readstream.on("error", function(err){
+        return res.status(201).json({errCode:40003,errMsg:'项目音频文件',data:{error:err}});
+    });
+    res.writeHead(200, {
+        'Content-Type': 'audio/mpeg'
+    });
+    readstream.pipe(res);
+  }
+};

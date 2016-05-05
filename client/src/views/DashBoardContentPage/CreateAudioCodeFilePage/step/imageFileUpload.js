@@ -38,27 +38,27 @@ var ImageFileUpload = React.createClass({
          )
         });
         //按三图片一行
-        // var showImageRows = function(){
-        //   var i,j,chunk = 3;
-        //   var sets = [];
-        //   for (i=0,j=this.state.files.length; i<j; i+=chunk) {
-        //     sets.push(this.state.files.slice(i,i+chunk));
-        //   }
-        //   var imageRows=sets.map(function(imageFiles){
-        //     return(
-        //       <Row>
-        //         imageFiles.map(function(file) {
-        //           return(
-        //             <Col md={2}>
-        //                <Thumbnail src={file.preview} />
-        //             </Col>
-        //           )
-        //         })
-        //       </Row>
-        //     )
-        //   });
-        //   return imageRows
-        // };
+        //  var showImageRows = function(){
+        //    var i,j,chunk = 3;
+        //    var sets = [];
+        //    for (i=0,j=this.state.files.length; i<j; i+=chunk) {
+        //      sets.push(this.state.files.slice(i,i+chunk));
+        //    }
+        //    var imageRows=sets.map(function(imageFiles){
+        //      return(
+        //        <Row>
+        //          imageFiles.map(function(file) {
+        //            return(
+        //              <Col md={2}>
+        //                 <Thumbnail src={file.preview} />
+        //              </Col>
+        //            )
+        //          })
+        //        </Row>
+        //      )
+        //    });
+        //    return imageRows
+        //  };
        return (
          <div>
           <Grid>
