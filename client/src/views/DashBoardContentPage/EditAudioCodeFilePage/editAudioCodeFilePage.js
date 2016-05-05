@@ -2,6 +2,7 @@ import React from 'react';
 import SoundProgressComponent from './components/soundProgressComponent';
 import SoundPlayButton from './components/soundPlayButton';
 import ThumbnailsImgsPage from '../../ImagesListPage/thumbnailsimgspage';
+import {Panel} from "react-bootstrap";
 
 var Howl = require('howler').Howl;
 
@@ -45,16 +46,18 @@ var EditAudioCodeFilePage = React.createClass({
     },
     render: function () {
         return (
-            <div>
+            <Panel header="编辑音码文件">
                 <div>
-                    <SoundPlayButton isPlaying={this.state.isPlaying} isPause={this.state.isPause}
-                                     isLoading={this.state.isLoading} onPlayBtnClick={this.onPlayBtnClick}
-                                     onPauseBtnClick={this.onPauseBtnClick}/>
+                    <div>
+                        <SoundPlayButton isPlaying={this.state.isPlaying} isPause={this.state.isPause}
+                                         isLoading={this.state.isLoading} onPlayBtnClick={this.onPlayBtnClick}
+                                         onPauseBtnClick={this.onPauseBtnClick}/>
+                    </div>
+                    <div>
+                        <ThumbnailsImgsPage/>
+                    </div>
                 </div>
-                <div>
-                    <ThumbnailsImgsPage/>
-                </div>
-            </div>
+            </Panel>
         )
     },
 

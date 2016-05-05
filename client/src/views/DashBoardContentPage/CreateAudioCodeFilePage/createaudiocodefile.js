@@ -139,24 +139,27 @@ var CreateAudioCodeFilePage = React.createClass({
             <div>
                 <Panel header='创建音码文件向导'>
                     <Grid>
-                        <Row>
-                            <Col md={2} mdOffset={1}>
-                                <h3><Label bsStyle={this.state.stepOneStyle}>步骤一</Label></h3>
-                            </Col>
-                            <Col md={2}>
-                                <h3><Label bsStyle={this.state.stepTwoStyle}>步骤二</Label></h3>
-                            </Col>
-                            <Col md={2}>
-                                <h3><Label bsStyle={this.state.stepTreeStyle}>步骤三</Label></h3>
-                            </Col>
-                            <Col md={2}>
-                                <h3><Label bsStyle={this.state.stepFourStyle}>步骤四</Label></h3>
-                            </Col>
-                            <Col md={2}>
-                                <h3><Label bsStyle={this.state.stepFiveStyle}>步骤五</Label></h3>
-                            </Col>
-                        </Row>
-                        <br/>
+                        {
+                            this.state.step > 5 ? null :
+                                <Row>
+                                    <Col md={2} mdOffset={1}>
+                                        <h3><Label bsStyle={this.state.stepOneStyle}>步骤一</Label></h3>
+                                    </Col>
+                                    <Col md={2}>
+                                        <h3><Label bsStyle={this.state.stepTwoStyle}>步骤二</Label></h3>
+                                    </Col>
+                                    <Col md={2}>
+                                        <h3><Label bsStyle={this.state.stepTreeStyle}>步骤三</Label></h3>
+                                    </Col>
+                                    <Col md={2}>
+                                        <h3><Label bsStyle={this.state.stepFourStyle}>步骤四</Label></h3>
+                                    </Col>
+                                    <Col md={2}>
+                                        <h3><Label bsStyle={this.state.stepFiveStyle}>步骤五</Label></h3>
+                                    </Col>
+                                </Row>
+                        }
+                        {this.state.step > 5 ? null : <br/>}
                         <Row>
                             <Col md={9} mdOffset={1}>
                                 {this.showStep()}

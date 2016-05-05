@@ -296,41 +296,45 @@ export function createProjectImageFiles(req, res) {
                     })
                     .pipe(writestream);
             }], (asyncErr, result) => {
-                if (asyncErr) {
-                    return res.status(201).json({
-                        errCode: 40002,
-                        errMsg: '项目上传图像文件失败',
-                        data: {
-                            error: asyncErr
-                        }
-                    });
-                } else if (index === (req.files.length - 1)) {
-                    Tb_Project.findByIdAndUpdate(req.body.projectId, {
-                            imageFiles: result,
-                            state: 'finished'
-                        }, {
-                            new: true
-                        },
-                        function (err, newProject) {
-                            if (err) {
-                                return res.status(201).json({
-                                    errCode: 40002,
-                                    errMsg: '项目',
-                                    data: {
-                                        error: err
-                                    }
-                                });
-                            } else {
-                                res.status(201).json({
-                                    errCode: 0,
-                                    errMsg: '',
-                                    data: {
-                                        newProject
-                                    }
-                                }); //考虑节省带宽问题是否不需要返回当前项目
+                let error = [];
+                if (asyncErr)error.push(asyncErr);
+                if (index === (req.files.length - 1)) {
+                    if (asyncErr) {
+                        return res.status(201).json({
+                            errCode: 40002,
+                            errMsg: '项目上传图像文件失败',
+                            data: {
+                                error: error
                             }
-                        }
-                    );
+                        });
+                    }
+                    else {
+                        Tb_Project.findByIdAndUpdate(req.body.projectId, {
+                                imageFiles: result,
+                                state: 'finished'
+                            }, {
+                                new: true
+                            },
+                            function (err, newProject) {
+                                if (err) {
+                                    return res.status(201).json({
+                                        errCode: 40002,
+                                        errMsg: '项目',
+                                        data: {
+                                            error: err
+                                        }
+                                    });
+                                } else {
+                                    res.status(201).json({
+                                        errCode: 0,
+                                        errMsg: '',
+                                        data: {
+                                            newProject
+                                        }
+                                    }); //考虑节省带宽问题是否不需要返回当前项目
+                                }
+                            });
+                    }
                 }
             });
         }); //有可能存在存储文件的表浪费的情况，如在更新project发生错误，而存文件时没发生，所以应增加事务性
