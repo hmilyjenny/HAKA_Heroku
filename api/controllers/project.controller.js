@@ -6,7 +6,7 @@ var fs = require('fs');
 //mongoose-unique-validator还没有加入，后面完善
 
 export function getProjectById(req, res) {
-    if (!req.body.id) {
+    if (!req.params.id) {
         res.status(201).json({
             errCode: 40001,
             errMsg: '项目ID',
@@ -336,33 +336,6 @@ export function createProjectImageFiles(req, res) {
         }); //有可能存在存储文件的表浪费的情况，如在更新project发生错误，而存文件时没发生，所以应增加事务性
     }
 };
-//获取未完成项目信息
-export function getUnfinishedProject(req, res) {
-    let query = {_user: req.user._id};
-    if (req.body.projectId) {
-        query["_id"] = req.body.projectId;
-    }
-    Tb_Project.findOne(query, (err, project)=> {
-        if (err) {
-            return res.status(201).json({
-                errCode: 40002,
-                errMsg: '项目',
-                data: {
-                    error: err
-                }
-            });
-        }
-        else {
-            res.status(201).json({
-                errCode: 0,
-                errMsg: '',
-                data: {
-                    project
-                }
-            });
-        }
-    });
-}
 
 export function getFileThumbnails(req, res) {
     let projectId = req.params.projectId;
@@ -455,21 +428,55 @@ export function getFileImage(req, res) {
                 }
             });
         }
-      });
-  };
-export function getProjectAudioFileByAudioFileId(req,res){
-  if(!req.query.audioId){
-    res.status(201).json({errCode:40001,errMsg:'音频文件ID',data:{}});
-  }
-  else{
-    var gridfs =req.app.get("gridfs");
-    var readstream = gridfs.createReadStream({_id: req.query.audioId});
-    readstream.on("error", function(err){
-        return res.status(201).json({errCode:40003,errMsg:'项目音频文件',data:{error:err}});
     });
-    res.writeHead(200, {
-        'Content-Type': 'audio/mpeg'
-    });
-    readstream.pipe(res);
-  }
 };
+export function getProjectAudioFileByAudioFileId(req, res) {
+    if (!req.query.audioId) {
+        res.status(201).json({errCode: 40001, errMsg: '音频文件ID', data: {}});
+    }
+    else {
+        var gridfs = req.app.get("gridfs");
+        var readstream = gridfs.createReadStream({_id: req.query.audioId});
+        readstream.on("error", function (err) {
+            return res.status(201).json({errCode: 40003, errMsg: '项目音频文件', data: {error: err}});
+        });
+        res.writeHead(200, {
+            'Content-Type': 'audio/mpeg'
+        });
+        readstream.pipe(res);
+    }
+};
+export function setProjectStep(req, res) {
+    if (!req.body.projectId || !req.body.currentStep) {
+        res.status(201).json({
+            errCode: 40001,
+            errMsg: '项目ID或当前步骤',
+            data: {}
+        });
+    }
+    else {
+        let queryObj = {_id: req.body.projectId};
+        let modifyObj = {step: parseInt(req.body.currentStep) + 1};
+        let optionObj = {new: true};
+        Tb_Project.findByIdAndUpdate(queryObj, modifyObj, optionObj, (err, newProject)=> {
+            if (err) {
+                return res.status(201).json({
+                    errCode: 40002,
+                    errMsg: '项目',
+                    data: {
+                        error: err
+                    }
+                });
+            }
+            else {
+                res.status(201).json({
+                    errCode: 0,
+                    errMsg: '',
+                    data: {
+                        newProject
+                    }
+                });
+            }
+        });
+    }
+}

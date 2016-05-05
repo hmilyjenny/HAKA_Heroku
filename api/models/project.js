@@ -44,17 +44,18 @@ const tbProjectSchema = new Schema({
     imageFiles: {type: [imageFile], required: false}, //emded
     step: {type: Number, default: 1, required: false},
     /*
-     *TODO:1为添加了项目名称
-     *2为添加了项目品类
-     *3为添加了渠道
-     *4为上传了音频文件
-     *5为上传了图片文件
+     * TODO:1为添加了项目名称
+     * 2为添加了项目品类
+     * 3为添加了渠道
+     * 4为上传了音频文件
+     * 5为上传了图片文件
+     * 6为上传图片后的音频文件编辑待发布状态
      */
     state: {type: String, enum: ['unfinished', 'finished', 'release'], default: 'unfinished', required: false},
     /*
-     *TODO:unfinished为完成创建音码文件所需上传的文件没有上传完成状态，
-     *finished为完成文件上传后状态，
-     *release为发布状态
+     * TODO:unfinished为完成创建音码文件所需上传的文件没有上传完成状态，
+     * finished为完成文件上传后状态，
+     * release为发布状态
      */
 }, {timestamps: true});
 //联合索引，保证同用户不能有同一项目名称
