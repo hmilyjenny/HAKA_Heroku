@@ -41,7 +41,9 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
 
 import auth from './api/routes/auth.routes';
 import project from './api/routes/project.routes';
+import projectNoToken from './api/routes/project.notoken.routes';
 import system from './api/routes/system.routes';
+import channels from './api/routes/channels.routes';
 //import upload from './api/routes/upload.routes';
 import passport from 'passport';
 import {tokenCheck} from './api/utils/passport_jwt';
@@ -54,7 +56,9 @@ tokenCheck(passport);
 
 app.use('/api/auth', auth);
 app.use('/api/project',project);
+app.use('/api/projectnotoken',projectNoToken);
 app.use('/api/system',system);
+app.use('/api/channels',channels);
 
 app.get('*', function (request, response){
   response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
