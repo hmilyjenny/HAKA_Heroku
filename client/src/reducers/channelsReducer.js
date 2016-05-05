@@ -26,7 +26,7 @@ const channelsReducer = (state = initialState, action) => {
                 loading: false,
                 isExecing: false,
                 statusText: action.payload.statusText
-            });n.payload.statusText
+            });
             break;
         case cActions.CHANNELS_SHOW_SUCCESS:
             return Object.assign({}, state, {

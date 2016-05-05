@@ -25,9 +25,26 @@ export function getChannelsAll(req, res) {
                         }
                     });
                 }
+                else if (!_result) {
+                    result = [];
+                    res.status(201).json({
+                        errCode: 0,
+                        errMsg: '',
+                        data: {result}
+                    });
+                }
                 else {
                     // TODO:应为populate中的options排序未起作用,所以直接使用数组排序的方式
-                    result = _result[0].channels.sort();
+                    result = _result[0].channels.sort((a, b)=> {
+                        if (a._id > b._id) return -1;
+                        if (a._id < b._id) return 1;
+                        return 0;
+                    });
+                    if (req.body.query) {
+                        result = result.filter((_item)=> {
+                            return _item.channelCode.indexOf(req.body.query) !== -1 || _item.channelName.indexOf(req.body.query) !== -1
+                        });
+                    }
                     res.status(201).json({
                         errCode: 0,
                         errMsg: '',

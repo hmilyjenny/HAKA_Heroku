@@ -2,6 +2,7 @@ import React from 'react';
 import ProjectsPage from '../../views/DashBoardContentPage/ProjectsPage/projectspage';
 import CreateAudioCodeFilePage from '../../views/DashBoardContentPage/CreateAudioCodeFilePage/createaudiocodefile';
 import CreateChannelsPage from '../../views/DashBoardContentPage/CreateChannelsPage/createchannelspage';
+import ThumbnailsImgsPage from '../../views/ImagesListPage/thumbnailsimgspage';
 
 var ContentContainer = React.createClass({
     getInitialState: function(){
@@ -37,6 +38,10 @@ var ContentContainer = React.createClass({
     else if(this.state.loadComponent=='CreateChannelsPage')
     {
       component=<CreateChannelsPage {...this.props} />
+    }
+    else if(this.state.loadComponent=='ThumbnailsImgsPage')
+    {
+      component=<ThumbnailsImgsPage {...this.props} />
     }
     return(
       <div>{component}</div>

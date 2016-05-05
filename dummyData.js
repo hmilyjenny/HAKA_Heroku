@@ -20,7 +20,7 @@ export default function () {
 
     Tb_User.create(user, (error) => {
       if (!error) {
-        // console.log('ready to go....');
+        // console.log('ready to go....');channelCode
       }
     });
   });

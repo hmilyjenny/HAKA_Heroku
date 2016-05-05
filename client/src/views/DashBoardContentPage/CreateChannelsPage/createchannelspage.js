@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {Panel, Table, Button, Glyphicon, Modal, Input, FormGroup, InputGroup, FormControl} from "react-bootstrap";
 import * as channelsActions from '../../../actions/channelsActions';
 import LoadingIndicatior from '../../../components/LoadingIndicator';
+import SearchChannelsPage from './searchchannelspage';
 
 var CreateChannelsPage = React.createClass({
     getInitialState: function () {
@@ -17,7 +18,8 @@ var CreateChannelsPage = React.createClass({
         }
     },
     componentWillMount: function () {
-        this.props.getchannelsDataActions();
+        if (this.props.channelsData.length === 0)
+            this.props.getchannelsDataActions("");
     },
     componentWillReceiveProps: function (nextProps) {
         this.setState({
@@ -63,7 +65,7 @@ var CreateChannelsPage = React.createClass({
         if (this.state.loading) {
             return <LoadingIndicatior />
         } else {
-            var channelsItems = this.props.channelsData.map(function (channels, index) {
+            var channelsItems = this.props.channelsData.map((channels, index)=> {
                 return (
                     <tr key={channels._id}>
                         <td>{index + 1}</td>
@@ -83,6 +85,7 @@ var CreateChannelsPage = React.createClass({
         return (
             <div>
                 <Panel header='渠道管理'>
+                    <SearchChannelsPage pState={this.props}/>
                     <Table striped bordered condensed hover>
                         <thead>
                         <tr>

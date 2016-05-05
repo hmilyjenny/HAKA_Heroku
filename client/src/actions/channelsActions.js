@@ -27,17 +27,18 @@ export function getChannelsAllSuccess(result) {
 };
 
 //获取当前用户所有渠道
-export function getChannelsAll() {
+export function getChannelsAll(query) {
     return function (dispatch, getState) {
         dispatch(getChannelsAllRequest());
         return fetch('/api/channels/getChannelsAll', {
-                method: 'get',
+                method: 'post',
                 credentials: 'include',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                     'Authorization': `${getState().auth.token}`
-                }
+                },
+                body: JSON.stringify({query: (query !== null && query.length > 0) ? query : ""})
             }
         )
             .then(checkHttpStatus)
@@ -55,7 +56,7 @@ export function getChannelsAll() {
                 }
             })
             .catch(error => {
-                if(error.response) {
+                if (error.response) {
                     error.response.text().then(text=> {
                         error.response = {status: error.response.status, statusText: text}
                         dispatch(getChannelsAllFailure(error));
@@ -119,7 +120,7 @@ export function createChannels(code, name) {
                 }
             })
             .catch(error => {
-                if(error.response) {
+                if (error.response) {
                     error.response.text().then(text=> {
                         error.response = {status: error.response.status, statusText: text}
                         dispatch(createChannelsFailure(error));
@@ -144,7 +145,7 @@ export function removeChannelsFailure(error) {
     }
 };
 
-export function removeChannelsSuccess(result){
+export function removeChannelsSuccess(result) {
     return {
         type: cActions.CHANNELS_REMOVE_SUCCESS,
         payload: {
@@ -183,7 +184,7 @@ export function removeChannels(id) {
                 }
             })
             .catch(error => {
-                if(error.response) {
+                if (error.response) {
                     error.response.text().then(text=> {
                         error.response = {status: error.response.status, statusText: text}
                         dispatch(removeChannelsFailure(error));
