@@ -1,8 +1,10 @@
 import React from 'react';
 import ProjectsPage from '../../views/DashBoardContentPage/ProjectsPage/projectspage';
 import CreateAudioCodeFilePage from '../../views/DashBoardContentPage/CreateAudioCodeFilePage/createaudiocodefile';
+import EditAudioCodeFilePage from '../../views/DashBoardContentPage/EditAudioCodeFilePage/editaudiocodefile';
 import CreateChannelsPage from '../../views/DashBoardContentPage/CreateChannelsPage/createchannelspage';
-import ThumbnailsImgsPage from '../../views/ImagesListPage/thumbnailsimgspage';
+
+//import ThumbnailsImgsPage from '../../views/ImagesListPage/thumbnailsimgspage';
 
 var ContentContainer = React.createClass({
     getInitialState: function(){
@@ -39,9 +41,9 @@ var ContentContainer = React.createClass({
     {
       component=<CreateChannelsPage {...this.props} />
     }
-    else if(this.state.loadComponent=='ThumbnailsImgsPage')
+    else if(this.state.loadComponent=='EditAudioCodeFilePage')
     {
-      component=<ThumbnailsImgsPage {...this.props} />
+      component=<EditAudioCodeFilePage {...this.props} />
     }
     return(
       <div>{component}</div>

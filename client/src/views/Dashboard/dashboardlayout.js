@@ -8,7 +8,6 @@ import {
 import CSSModules from 'react-css-modules';
 import ContentContainer from './contentContainer';
 import styles from "./css/dashboard.css";
-import ThumbnailsImgsPage from "../ImagesListPage/thumbnailsimgspage";
 
 var DashBoardLayout = React.createClass({
     getInitialState: function () {
@@ -31,7 +30,7 @@ var DashBoardLayout = React.createClass({
         } else if (selectedKey == 5) {
             this.refs.cc.bundle('CreateChannelsPage');
         } else if (selectedKey == 7) {
-            this.refs.cc.bundle('ThumbnailsImgsPage');
+            this.refs.cc.bundle('EditAudioCodeFilePage');
         }
     },
     headerBarHandleSelect(event, selectedKey){
@@ -84,15 +83,13 @@ var DashBoardLayout = React.createClass({
                                     <NavItem eventKey={2} title="Item"><Glyphicon glyph="edit"/>&nbsp;创建音码文件</NavItem>
                                     <NavItem eventKey={3} title="Item"><Glyphicon glyph="list-alt"/>&nbsp;统计报表</NavItem>
                                     <NavItem eventKey={7} title="Item"><Glyphicon glyph="list-alt"/>&nbsp;
-                                        查看缩略图</NavItem>
+                                        编辑音码</NavItem>
                                     <NavItem eventKey={4} title="Item" onClick={this.collapseSubItem}><Glyphicon
                                         glyph="wrench"/>&nbsp;项目共有信息设定<Glyphicon glyph="chevron-right"/></NavItem>
                                     <Collapse in={this.state.isOpenSubItem}>
                                         <div>
                                             <NavItem eventKey={5} title="Item" onSelect={this.handleSelect}><Glyphicon
                                                 glyph="bookmark"/>&nbsp;&nbsp;&nbsp;渠道</NavItem>
-                                            <NavItem eventKey={6} title="Item"><Glyphicon
-                                                glyph="bookmark"/>&nbsp;&nbsp;&nbsp;品类</NavItem>
                                         </div>
                                     </Collapse>
                                 </Nav>

@@ -10,23 +10,29 @@ var EditAudioCodeFilePage = React.createClass({
       isLoading: false,
       isPlaying:false,
       isPause:false,
+      currentSongIndex: 0,
       duration:0
     }
   },
   componentWillMount:function(){
-    this.initSoundObject();
+    //this.initSoundObject();
   },
   componentDidUpdate: function(prevProps, prevState, prevContext) {
-		if (this.state.isPlaying) {
+    console.log('prevState.currentSongIndex' +prevState.currentSongIndex);
+    console.log('this.state.currentSongIndex' +this.state.currentSongIndex);
+    console.log('duration' +this.state.duration);
+		if (this.state.isPlaying && this.state.currentSongIndex != prevState.currentSongIndex) {
 			this.initSoundObject();
 		}
 	},
   initSoundObject:function(){
     this.clearSoundObject();
 		this.setState({ isLoading: true });
-
+    console.log('start load');
 		this.howler = new Howl({
-			src: '/api/project/getProjectAudioFileByAudioFileId?audioId=57246940c8593204ee3ce837',
+			src: ['/api/project/getProjectAudioFileByAudioFileId?audioId=57246940c8593204ee3ce837'],
+      ext: ['mp3'],
+      html5: true,
 			onload: this.initSoundObjectCompleted
 		});
   },
@@ -37,6 +43,8 @@ var EditAudioCodeFilePage = React.createClass({
 		}
  	},
   initSoundObjectCompleted:function(){
+    console.log('play');
+      this.howler.play();
     this.setState({
 			duration: this.howler.duration(),
 			isLoading: false
@@ -69,3 +77,4 @@ var EditAudioCodeFilePage = React.createClass({
     this.howler.pause();
   },
 });
+export default EditAudioCodeFilePage;
