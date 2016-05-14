@@ -1,49 +1,64 @@
-import React from 'react'
-import Rcslider from 'rc-slider'
+import React from 'react';
 
+
+const container ={
+  top :'10px',
+  width: '100%',
+  height: '10px',
+  position: 'relative',
+  cursor: 'default'
+};
+const slideBar = {
+  width: '100%',
+  height: '10px',
+  boxShadow: '0px 0px 2px 0px rgba(0, 0, 0, 0.74)',
+  borderRadius: '10px',
+  position: 'absolute'
+};
+const slideBarFill={
+  backgroundColor: 'rgb(216, 216, 216)',
+  boxShadow: 'none',
+  height: '10px',
+  width: '60%',
+  borderRadius: '20px',
+  transition: 'width 0.1s ease-in-out'
+};
+const slideBarHandle={
+  border: '1px solid #ccc',
+  width: '20px',
+	height: '20px',
+	borderRadius: '20px',
+  position: 'absolute',
+  display: 'inline-block',
+  cursor: 'pointer',
+	top: '-5px'
+};
 var SoundProgressComponent = React.createClass({
   getInitialState:function(){
     return{
-      value:0,
-      marks:{},
+      fillWidth: 30,
+      value: 0,
+      mouseX: 0,
+      mouseDown: false
     }
   },
-  componentWillReceiveProps:function(nextProps){
-
+  handleClick(e) {
+          let rect = this.refs.container.getBoundingClientRect();
+          let ratio = (e.pageX - rect.left) / rect.width;
+          //console.log(ratio);
+          this.setState({
+              fillWidth: 100 * ratio
+          });
   },
-  setCurrentValue(value){
-    this.setState({
-      value:value
-    })
-  },
-  addMark(mark){
-    this.setState({
-      marks:this.marks.mark=''
-    });
-  },
-  deleteMark(mark){
-    let marks = this.state.marks;
-    delete marks.mark;
-    this.setState({
-      marks:marks
-    });
-  },
-  // onSliderChange:function(value){
-  //   let onSeekTrack = this.props.onSeekTrack;
-  //   let sound = this.props.sound;
-  //   let duration = this.props.duration;
-  //   if(sound){
-  //     sound.pause();
-  //     var seek = duration * value*0.01;
-  //     sound.seek(seek)
-  //   }
-  //   onSeekTrack(value);
-  // },
   render:function(){
     return(
-      <Rcslider marks={this.props.marks} value={this.props.seek} included={false} onChange={this.props.onSliderChange}/>
+      <div style={container} ref="container" onClick={this.handleClick}>
+        <div style={slideBar}></div>
+        <div style={slideBar,slideBarFill,{width: this.state.fillWidth + '%',borderRadius: '20px',transition: 'width 0.1s ease-in-out',
+              height: '10px',backgroundColor: '#104E8B',boxShadow: 'none'}}></div>
+        <div style={slideBarHandle} />
+      </div>
     )
   }
 });
-
 export default SoundProgressComponent;
