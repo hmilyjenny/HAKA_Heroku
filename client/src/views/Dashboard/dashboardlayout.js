@@ -31,6 +31,8 @@ var DashBoardLayout = React.createClass({
             this.refs.cc.getWrappedInstance().bundle('CreateChannelsPage');
         } else if (selectedKey == 7) {
             this.refs.cc.getWrappedInstance().bundle('PreviewPage');
+        } else if (selectedKey == 8) {
+            this.refs.cc.getWrappedInstance().bundle('EditAudioCodeFilePage');
         }
     },
     headerBarHandleSelect(event, selectedKey){
@@ -84,14 +86,14 @@ var DashBoardLayout = React.createClass({
                                     <NavItem eventKey={3} title="Item"><Glyphicon glyph="list-alt"/>&nbsp;统计报表</NavItem>
                                     <NavItem eventKey={7} title="Item"><Glyphicon glyph="list-alt"/>&nbsp;
                                         项目浏览</NavItem>
+                                    <NavItem eventKey={8} title="Item"><Glyphicon glyph="list-alt"/>&nbsp;
+                                        编辑音码</NavItem>
                                     <NavItem eventKey={4} title="Item" onClick={this.collapseSubItem}><Glyphicon
                                         glyph="wrench"/>&nbsp;项目共有信息设定<Glyphicon glyph="chevron-right"/></NavItem>
                                     <Collapse in={this.state.isOpenSubItem}>
                                         <div>
                                             <NavItem eventKey={5} title="Item" onSelect={this.handleSelect}><Glyphicon
                                                 glyph="bookmark"/>&nbsp;&nbsp;&nbsp;渠道</NavItem>
-                                            <NavItem eventKey={6} title="Item"><Glyphicon
-                                                glyph="bookmark"/>&nbsp;&nbsp;&nbsp;品类</NavItem>
                                         </div>
                                     </Collapse>
                                 </Nav>

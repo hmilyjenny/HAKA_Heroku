@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, ButtonGroup, Glyphicon} from 'react-bootstrap';
+import {Button,Glyphicon,ButtonGroup } from 'react-bootstrap';
 
 var SoundPlayButton = React.createClass({
     render: function () {

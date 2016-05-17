@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ProjectsPage from '../../views/DashBoardContentPage/ProjectsPage/projectspage';
 import CreateAudioCodeFilePage from '../../views/DashBoardContentPage/CreateAudioCodeFilePage/createaudiocodefile';
+import EditAudioCodeFilePage from '../../views/DashBoardContentPage/EditAudioCodeFilePage/editaudiocodefile';
 import CreateChannelsPage from '../../views/DashBoardContentPage/CreateChannelsPage/createchannelspage';
 import PreviewPage from "../../views/PreviewPage/previewpage";
 
@@ -46,6 +47,10 @@ var ContentContainer = React.createClass({
         }
         else if (this.state.loadComponent == 'PreviewPage') {
             component = <PreviewPage {...this.props} />
+        }
+        else if(this.state.loadComponent=='EditAudioCodeFilePage')
+        {
+            component=<EditAudioCodeFilePage {...this.props} />
         }
         if (this.state.redirectPage == 'CreateAudioCodeFilePage') {
             component = <CreateAudioCodeFilePage {...this.props} />

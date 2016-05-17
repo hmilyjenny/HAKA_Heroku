@@ -7,7 +7,7 @@ import CategorySelect from './step/categorySelect';
 import ChannelSelect from './step/channelSelect';
 import AudioFileUpload from './step/audioFileUpload';
 import ImageFileUpload from './step/imageFileUpload';
-import EditAudioCodeFilePage from '../EditAudioCodeFilePage/editAudioCodeFilePage';
+import EditAudioCodeFilePage from '../EditAudioCodeFilePage/editaudiocodefile';
 import * as actionCreators from '../../../actions/projectActions';
 //import LoadingIndicatior from '../../../components/LoadingIndicator';
 //import AlertAutoDismissable from '../../Alert/alert';
