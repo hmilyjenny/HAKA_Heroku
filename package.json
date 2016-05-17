@@ -20,6 +20,7 @@
   "author": "Jason",
   "license": "MIT",
   "dependencies": {
+    "antd": "^0.12.17",
     "async": "^2.0.0-rc.3",
     "babel-cli": "^6.7.5",
     "babel-core": "^6.7.6",
@@ -37,7 +38,7 @@
     "gm": "^1.22.0",
     "gridfs-stream": "^1.1.1",
     "history": "^2.0.1",
-    "howler": "^2.0.0-beta12",
+    "howler": "^2.0.0-beta9",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^2.2.3",
     "jwt-decode": "^2.0.1",

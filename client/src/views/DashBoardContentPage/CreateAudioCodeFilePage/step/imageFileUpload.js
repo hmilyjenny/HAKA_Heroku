@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Grid, Row, Col, Thumbnail, Image} from 'react-bootstrap';
+import {Button, Grid, Row, Col} from 'react-bootstrap';
 import Dropzone from 'react-dropzone'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -13,20 +13,25 @@ var ImageFileUpload = React.createClass({
             files: []
         };
     },
-
     onDrop: function (files) {
-        console.log(files);
         this.setState({
             files: files
         });
     },
-
     onOpenClick: function () {
         this.refs.dropzone.open();
     },
+    onRemoveClick: function (e) {
+        let tmpindex = e.currentTarget.firstChild.innerText;
+        let tmpfiles = this.state.files;
+        tmpfiles.splice(tmpindex, 1);
+        this.setState({
+            files: tmpfiles
+        });
+    },
     nextStep: function (e) {
         e.preventDefault();
-        //console.log(this.state.file);
+        if (!this.state.files || this.state.files.length === 0)return;
         this.props.savaProjectImageFiles(this.props.currentStep, this.state.files);
     },
     EditAudio: function (e) {
@@ -34,13 +39,26 @@ var ImageFileUpload = React.createClass({
         this.props.setProjectStepActions(this.props.currentStep);
     },
     render: function () {
-        var imageItems = this.state.files.map(function (file) {
+        let imageContent = this.state.files.map((file, index)=> {
             return (
-                <Col md={2}>
-                    <Thumbnail src={file.preview} key={file.lastModified}/>
-                </Col>
-            )
+                <div key={index} style={{height:"120px",width:"120px",display:"table",textAlign:"center",float:"left"}}>
+                    <span style={{display:"table-cell",verticalAlign:"middle"}}>
+                        <a onClick={this.onRemoveClick} title={"点击删除:"+file.name} href="javascript:;">
+                            <label hidden>{index}</label>
+                            <img src={file.preview} style={{maxHeight:"120px",width:"auto",maxWidth:"120px"}}/>
+                        </a>
+                    </span>
+                </div>
+            );
         });
+        let imageItems;
+        if (this.state.files && this.state.files.length > 0) {
+            imageItems = <div
+                style={{height:"200px",width:"560px",overflow:"auto",border:"1px solid #E0E0E0"}}>{imageContent}</div>;
+        }
+        else {
+            imageItems = null;
+        }
         //按图片分三行
         // var showImageRows = function(){
         //   var i,j,chunk = 3;
@@ -63,34 +81,38 @@ var ImageFileUpload = React.createClass({
         //   });
         //   return imageRows
         // };
+        let nextStepEle = null;
+        if (this.props.currentStep === 5 && this.props.imageFiles && this.props.imageFiles.length > 0)
+            nextStepEle = (<Button bsStyle="primary" onClick={this.EditAudio}>编辑音码文件</Button>);
+        else
+            nextStepEle = null;
         return (
-            <div>
-                <Grid>
-                    <Row>
-                        <Col md={3}>
-                            <Dropzone ref="dropzone" onDrop={this.onDrop} multiple={true} accept="image/*">
-                                <div>拖拽文件入内</div>
-                            </Dropzone>
-                        </Col>
-                        <Col md={3}>
-                            <Grid>
-                                <Row>
-                                    {imageItems}
-                                </Row>
-                            </Grid>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={6}>
-                            <Button onClick={this.nextStep}>上传</Button>
-                            <Button bsStyle="primary" onClick={this.EditAudio}>编辑音码文件</Button>
-                        </Col>
-                    </Row>
-                </Grid>
-            </div>
+            <Grid>
+                <Row>
+                    <Col md={3}>
+                        <Dropzone ref="dropzone" onDrop={this.onDrop} multiple={true} accept="image/*">
+                            <div>拖拽文件入内</div>
+                        </Dropzone>
+                    </Col>
+                    <Col md={3}>
+                        <Grid>
+                            <Row>
+                                {imageItems}
+                            </Row>
+                        </Grid>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md={6}>
+                        <Button onClick={this.nextStep}>上传</Button>
+                        {nextStepEle}
+                    </Col>
+                </Row>
+            </Grid>
         );
     }
 });
+
 const mapDispatchToProps = (dispatch) => ({
     savaProjectImageFiles: bindActionCreators(savaProjectImageFiles, dispatch),
     setProjectStepActions: bindActionCreators(setProjectStep, dispatch)

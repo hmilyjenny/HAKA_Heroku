@@ -8,7 +8,6 @@ import {
 import CSSModules from 'react-css-modules';
 import ContentContainer from './contentContainer';
 import styles from "./css/dashboard.css";
-import ThumbnailsImgsPage from "../ImagesListPage/thumbnailsimgspage";
 
 var DashBoardLayout = React.createClass({
     getInitialState: function () {
@@ -25,13 +24,13 @@ var DashBoardLayout = React.createClass({
     //选择所需渲染的组件
     handleSelect(selectedKey) {
         if (selectedKey == 1) {
-            this.refs.cc.bundle('ProjectsPage');
+            this.refs.cc.getWrappedInstance().bundle('ProjectsPage');
         } else if (selectedKey == 2) {
-            this.refs.cc.bundle('CreateAudioCodeFilePage');
+            this.refs.cc.getWrappedInstance().bundle('CreateAudioCodeFilePage');
         } else if (selectedKey == 5) {
-            this.refs.cc.bundle('CreateChannelsPage');
+            this.refs.cc.getWrappedInstance().bundle('CreateChannelsPage');
         } else if (selectedKey == 7) {
-            this.refs.cc.bundle('ThumbnailsImgsPage');
+            this.refs.cc.getWrappedInstance().bundle('PreviewPage');
         }
     },
     headerBarHandleSelect(event, selectedKey){
@@ -84,7 +83,7 @@ var DashBoardLayout = React.createClass({
                                     <NavItem eventKey={2} title="Item"><Glyphicon glyph="edit"/>&nbsp;创建音码文件</NavItem>
                                     <NavItem eventKey={3} title="Item"><Glyphicon glyph="list-alt"/>&nbsp;统计报表</NavItem>
                                     <NavItem eventKey={7} title="Item"><Glyphicon glyph="list-alt"/>&nbsp;
-                                        查看缩略图</NavItem>
+                                        项目浏览</NavItem>
                                     <NavItem eventKey={4} title="Item" onClick={this.collapseSubItem}><Glyphicon
                                         glyph="wrench"/>&nbsp;项目共有信息设定<Glyphicon glyph="chevron-right"/></NavItem>
                                     <Collapse in={this.state.isOpenSubItem}>

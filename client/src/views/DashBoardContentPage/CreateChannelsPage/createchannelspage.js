@@ -1,7 +1,7 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {Panel, Table, Button, Glyphicon, Modal, Input, FormGroup, InputGroup, FormControl} from "react-bootstrap";
+import {Panel, Table, Button, Glyphicon, Modal, Input, Alert} from "react-bootstrap";
 import * as channelsActions from '../../../actions/channelsActions';
 import LoadingIndicatior from '../../../components/LoadingIndicator';
 import SearchChannelsPage from './searchchannelspage';
@@ -14,7 +14,8 @@ var CreateChannelsPage = React.createClass({
             showModal: false,
             channelsData: [],
             isExecing: false,
-            loading: false
+            loading: false,
+            alertVisible: false
         }
     },
     componentWillMount: function () {
@@ -25,7 +26,8 @@ var CreateChannelsPage = React.createClass({
         this.setState({
             channelsData: nextProps.channelsData,
             isExecing: nextProps.isExecing,
-            loading: nextProps.loading
+            loading: nextProps.loading,
+            alertVisible: nextProps.alertVisible
         });
     },
     removeChannels: function (e) {
@@ -35,14 +37,15 @@ var CreateChannelsPage = React.createClass({
     createChannels: function () {
         let code = this.state.code;
         let name = this.state.name;
+        if (code.length === 0 || name.length === 0)return;
         this.props.createchannelsActions(code, name);
-        this.setState({showModal: false});
+        this.btnClose();
     },
     btnClose: function () {
-        this.setState({showModal: false});
+        this.setState({showModal: false, code: "", name: ""});
     },
     btnOpen: function () {
-        this.setState({showModal: true});
+        this.setState({showModal: true, code: "", name: ""});
     },
     getCodeValidationState: function () {
         let length = this.state.code.length;
@@ -59,6 +62,12 @@ var CreateChannelsPage = React.createClass({
     },
     namehandleChange: function (e) {
         this.setState({name: e.target.value});
+    },
+    handleAlertDismiss() {
+        this.setState({alertVisible: false});
+    },
+    handleAlertShow() {
+        this.setState({alertVisible: true});
     },
     render: function () {
         let _this = this;
@@ -81,10 +90,17 @@ var CreateChannelsPage = React.createClass({
                     </tr>
                 )
             });
+            var AlertEle = null;
+            if (this.state.alertVisible) {
+                AlertEle = <Alert bsStyle="danger" onDismiss={this.handleAlertDismiss}>
+                    <strong>创建渠道错误:</strong> {this.props.statusText}
+                </Alert>
+            }
         }
         return (
             <div>
                 <Panel header='渠道管理'>
+                    {AlertEle}
                     <SearchChannelsPage pState={this.props}/>
                     <Table striped bordered condensed hover>
                         <thead>
@@ -108,9 +124,11 @@ var CreateChannelsPage = React.createClass({
                         </Modal.Header>
                         <Modal.Body>
                             <label>渠道编码与名称不可重复</label>
-                            <Input placeholder="请填写渠道编码  如:0001" bsStyle={this.getCodeValidationState()} hasFeedback
+                            <Input ref="codetxt" placeholder="请填写渠道编码  如:0001" bsStyle={this.getCodeValidationState()}
+                                   hasFeedback
                                    type="text" autofocus="" onChange={this.codehandleChange}/>
-                            <Input placeholder="请填写渠道名称 如:我的渠道" bsStyle={this.getNameValidationState()} hasFeedback
+                            <Input ref="nametxt" placeholder="请填写渠道名称 如:我的渠道" bsStyle={this.getNameValidationState()}
+                                   hasFeedback
                                    type="text" onChange={this.namehandleChange}/>
                         </Modal.Body>
                         <Modal.Footer>
@@ -129,7 +147,8 @@ const mapStateToProps = (state) => ({
     loading: state.channels.loading,
     isExecing: state.channels.isExecing,
     channelsData: state.channels.channelsData,
-    statusText: state.channels.statusText
+    statusText: state.channels.statusText,
+    alertVisible: state.channels.alertVisible
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -4,7 +4,9 @@ import  {
     PROJECT_CHANNEL_SAVE_SUCCESS, PROJECT_AUDIO_SAVE_SUCCESS,
     PROJECT_IMAGE_SAVE_SUCCESS, PROJECT_FINISHED_SUCCESS,
     PROJECT_GET_PROJECTINFO_REQUEST, PROJECT_GET_PROJECTINFO_FAILURE, PROJECT_GET_PROJECTINFO_SUCCESS,
-    PROJECT_SET_STEP_REQUEST, PROJECT_SET_STEP_FAILURE, PROJECT_SET_STEP_SUCCESS
+    PROJECT_SET_STEP_REQUEST, PROJECT_SET_STEP_FAILURE, PROJECT_SET_STEP_SUCCESS,
+    PROJECT_GET_PROJECTSLIST_REQUEST, PROJECT_GET_PROJECTSLIST_FAILURE, PROJECT_GET_PROJECTSLIST_SUCCESS,
+    PROJECT_REMOVE_REQUEST, PROJECT_REMOVE_FAILURE, PROJECT_REMOVE_SUCCESS
 } from  '../constants/projectConstants';
 import {checkHttpStatus, parseJSON, formatErrMsg} from '../utils';
 
@@ -29,8 +31,12 @@ export function saveProjectNameSuccess(newProject) {
     return {
         type: PROJECT_NAME_SAVE_SUCCESS,
         payload: {
-            projectName: newProject.name,
             projectId: newProject._id,
+            projectName: newProject.name,
+            audioFile: newProject.audioFile,
+            imageFiles: newProject.imageFiles,
+            channels: newProject.channels,
+            category: newProject.category,
             step: newProject.step
         }
     }
@@ -90,6 +96,11 @@ export function getProjectById(projectId) {
             .then(parseJSON)
             .then(response => {
                 if (response.errCode == 0) {
+                    if (response.data.project.imageFiles && response.data.project.imageFiles.length > 0) {
+                        response.data.project.imageFiles.map((item)=>{
+                            delete item.imageBuffer;
+                        })
+                    }
                     dispatch(getProjectByIdSuccess(response.data.project));
                 } else {
                     dispatch(getProjectByIdFailure({
@@ -325,6 +336,11 @@ export function savaProjectImageFiles(currentStep, files) {
             .then(parseJSON)
             .then(response => {
                 if (response.errCode == 0) {
+                    if (response.data.newProject.imageFiles && response.data.newProject.imageFiles.length > 0) {
+                        response.data.newProject.imageFiles.map((item)=>{
+                            delete item.imageBuffer;
+                        })
+                    }
                     dispatch(saveProjectImageFileSuccess(response.data.newProject));
                 } else {//这应该在重构中提出方法来
                     dispatch(saveProjectContentFailure({
@@ -400,6 +416,122 @@ export function setProjectStep(currentStep) {
                     error.response.text().then(text=> {
                         error.response = {status: error.response.status, statusText: text}
                         dispatch(setProjectStepFailure(error, currentStep));
+                    })
+                }
+            })
+    }
+}
+
+export function getProjectsListInfoRequest() {
+    return {type: PROJECT_GET_PROJECTSLIST_REQUEST}
+}
+export function getProjectsListInfoFailure(error) {
+    return {
+        type: PROJECT_GET_PROJECTSLIST_FAILURE,
+        payload: {
+            statusText: error.response.statusText
+        }
+    }
+}
+export function getProjectsListInfoSuccess(projectsList) {
+    return {
+        type: PROJECT_GET_PROJECTSLIST_SUCCESS,
+        payload: {
+            projectsList: projectsList
+        }
+    }
+}
+export function getProjectsListInfo(query) {
+    return function (dispatch, getState) {
+        dispatch(getProjectsListInfoRequest());
+        return fetch('/api/project/getProjectsListInfo', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `${getState().auth.token}`
+                },
+                body: query
+            }
+        )
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then(response => {
+                if (response.errCode == 0) {
+                    dispatch(getProjectsListInfoSuccess(response.data.result));
+                } else {
+                    dispatch(getProjectsListInfoFailure({
+                        response: {
+                            status: response.errCode,
+                            statusText: formatErrMsg(response)
+                        }
+                    }));
+                }
+            })
+            .catch(error => {
+                if (error.response) {
+                    error.response.text().then(text=> {
+                        error.response = {status: error.response.status, statusText: text}
+                        dispatch(getProjectsListInfoFailure(error));
+                    })
+                }
+            })
+    }
+}
+
+export function removeProjectRequest() {
+    return {type: PROJECT_REMOVE_REQUEST}
+}
+export function removeProjectFailure(error) {
+    return {
+        type: PROJECT_REMOVE_FAILURE,
+        payload: {
+            statusText: error.response.statusText
+        }
+    }
+}
+export function removeProjectSuccess(projectsList) {
+    return {
+        type: PROJECT_REMOVE_SUCCESS,
+        payload: {
+            projectsList: projectsList
+        }
+    }
+}
+export function removeProject(id) {
+    return function (dispatch, getState) {
+        dispatch(removeProjectRequest());
+        return fetch('/api/project/removeProject', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `${getState().auth.token}`
+                },
+                body: JSON.stringify({id: id})
+            }
+        )
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then(response => {
+                if (response.errCode == 0) {
+                    dispatch(removeProjectSuccess(response.data.result));
+                } else {
+                    dispatch(removeProjectFailure({
+                        response: {
+                            status: response.errCode,
+                            statusText: formatErrMsg(response)
+                        }
+                    }));
+                }
+            })
+            .catch(error => {
+                if (error.response) {
+                    error.response.text().then(text=> {
+                        error.response = {status: error.response.status, statusText: text}
+                        dispatch(removeProjectFailure(error));
                     })
                 }
             })

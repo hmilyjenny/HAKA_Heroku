@@ -85,11 +85,23 @@ export function createChannels(req, res) {
                         errCode: -1,
                         errMsg: '添加渠道前查询错误',
                         data: {
-                            error: '未找到当前用户对应数据'
+                            error: '未找到当前用户数据'
                         }
                     });
                 }
                 else {
+                    let result = _tbUser[0].channels.filter((_item)=> {
+                        return _item.channelCode === newChanel.channelCode || _item.channelName === newChanel.channelName
+                    });
+                    if (result.length > 0) {
+                        return res.status(201).json({
+                            errCode: 40002,
+                            errMsg: '渠道编码或名称',
+                            data: {
+                                error: '渠道编码或名称已存在'
+                            }
+                        });
+                    }
                     _tbUser[0].channels.push(newChanel);
                     _tbUser[0].save((err)=> {
                         if (err) {

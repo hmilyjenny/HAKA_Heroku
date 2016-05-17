@@ -28,10 +28,12 @@ var ThumbnailsImgsPage = React.createClass({
             // {window.URL.createObjectURL(blob)}
             let tmpimgurl = "/api/project/getFileThumbnails/" + this.props.projectID + "/" + img._id;
             return (
-                <div key={img.imageId} style={{height:"80px",width:"80px",float:"left"}}>
-                    <a href="javascript:;" onClick={this.btnOpen}>
-                        <img src={tmpimgurl}/>
-                    </a>
+                <div key={img.imageId} style={{height:"80px",width:"80px",display:"table",textAlign:"center",float:"left"}}>
+                    <span style={{display:"table-cell",verticalAlign:"middle"}}>
+                        <a href="javascript:;" onClick={this.btnOpen}>
+                            <img src={tmpimgurl}/>
+                        </a>
+                    </span>
                 </div>
             );
         });
@@ -46,8 +48,10 @@ var ThumbnailsImgsPage = React.createClass({
                     </Modal.Header>
                     <Modal.Body>
                         <div style={{height:"400px",border:"0px solid #E0E0E0"}}>
-                            <div style={{height:"400px",width:"560px",border:"0px solid red",float:"left"}}>
-                                <img src={this.state.imageAccessURL} style={{height:"390px",width:"550px"}}/>
+                            <div style={{height:"400px",width:"560px",border:"0px solid red",display:"table",textAlign:"center",float:"left"}}>
+                                <span style={{display:"table-cell",verticalAlign:"middle"}}>
+                                    <img src={this.state.imageAccessURL} style={{maxHeight:"396px",width:"auto",maxWidth:"550px"}}/>
+                                </span>
                             </div>
                             <div style={{height:"400px",width:"300px",border:"0px solid blue",float:"left"}}>
                                 请填写图片文字说明:

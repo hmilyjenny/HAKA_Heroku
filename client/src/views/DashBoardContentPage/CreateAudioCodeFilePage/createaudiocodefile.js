@@ -27,11 +27,10 @@ var CreateAudioCodeFilePage = React.createClass({
         }
     },
     componentWillMount: function () {
-        if (!this.props.projectID) {
+        if (this.props.newP === "1") {
             this.setComponentsState(1);
         }
         else {
-            this.props.actions.getProjectById(this.props.projectID);
             this.setComponentsState(this.props.currentStep);
         }
     },
@@ -103,6 +102,7 @@ var CreateAudioCodeFilePage = React.createClass({
                         step: currentStep
                     }
                 )
+                break;
             case 6:
                 this.setState(
                     {
@@ -142,7 +142,7 @@ var CreateAudioCodeFilePage = React.createClass({
                         {
                             this.state.step > 5 ? null :
                                 <Row>
-                                    <Col md={2} mdOffset={1}>
+                                    <Col md={2} mdOffset={0}>
                                         <h3><Label bsStyle={this.state.stepOneStyle}>步骤一</Label></h3>
                                     </Col>
                                     <Col md={2}>
@@ -161,7 +161,7 @@ var CreateAudioCodeFilePage = React.createClass({
                         }
                         {this.state.step > 5 ? null : <br/>}
                         <Row>
-                            <Col md={9} mdOffset={1}>
+                            <Col md={9} mdOffset={0}>
                                 {this.showStep()}
                             </Col>
                         </Row>
@@ -176,11 +176,12 @@ const mapStateToProps = (state) => ({
     // category :  state.project.category,
     // channels:  state.project.channels,
     // audioFile:  state.project.audioFile,
-    // imageFiles: state.project.imageFiles,
+    imageFiles: state.project.imageFiles,
     // isSaving: state.project.isSaving,
     // statusText      : state.project.statusText,
     currentStep: state.project.step,
-    projectID: state.project.projectId
+    projectID: state.project.projectId,
+    redirectPage: state.project.redirectPage//需要跳转的页
 });
 
 const mapDispatchToProps = (dispatch) => ({

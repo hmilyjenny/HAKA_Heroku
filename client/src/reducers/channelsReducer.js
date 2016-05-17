@@ -5,7 +5,8 @@ const initialState = {
     channelsData: [],
     isExecing: false,
     loading: false,
-    statusText: ''
+    statusText: '',
+    alertVisible: false
 };
 
 const channelsReducer = (state = initialState, action) => {
@@ -16,7 +17,8 @@ const channelsReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 loading: true,
                 isExecing: true,
-                statusText: null
+                statusText: null,
+                alertVisible: false
             });
             break;
         case cActions.CHANNELS_SHOW_FAILURE:
@@ -25,7 +27,8 @@ const channelsReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 loading: false,
                 isExecing: false,
-                statusText: action.payload.statusText
+                statusText: action.payload.statusText,
+                alertVisible: true
             });
             break;
         case cActions.CHANNELS_SHOW_SUCCESS:
@@ -41,7 +44,8 @@ const channelsReducer = (state = initialState, action) => {
                 channelsData: action.payload.channelsData,
                 loading: false,
                 isExecing: false,
-                statusText: '创建渠道列表成功'
+                statusText: '创建渠道列表成功',
+                alertVisible: false
             });
             break;
         case cActions.CHANNELS_REMOVE_SUCCESS:

@@ -9,8 +9,8 @@ const projectRouter = new Router();
 
 projectRouter.get('/getFileThumbnails/:projectId/:imgId', ProjectController.getFileThumbnails);
 projectRouter.get('/getFileImage/:projectId/:imgId', ProjectController.getFileImage);
-projectRouter.get('/getProjectAudioFileByAudioFileId',ProjectController.getProjectAudioFileByAudioFileId);
-projectRouter.use(passport.authenticate('jwt', { session: false}));//经过passport-jwt中间件
+projectRouter.get('/getProjectAudioFileByAudioFileId', ProjectController.getProjectAudioFileByAudioFileId);
+projectRouter.use(passport.authenticate('jwt', {session: false}));//经过passport-jwt中间件
 
 projectRouter.get('/getProjectById/:id', ProjectController.getProjectById);
 projectRouter.get('/getProjectByName', ProjectController.getProjectByName);
@@ -19,7 +19,10 @@ projectRouter.post('/createProjectCategories', ProjectController.createProjectCa
 projectRouter.post('/createProjectChannels', ProjectController.createProjectChannels);
 projectRouter.post('/createProjectAudioFile', upload.single('file'), ProjectController.createProjectAudioFile);
 projectRouter.post('/createProjectImageFiles', upload.array('file'), ProjectController.createProjectImageFiles);
-projectRouter.post('/setProjectStep',ProjectController.setProjectStep);
+projectRouter.post('/setProjectStep', ProjectController.setProjectStep);
+projectRouter.post('/getProjectsListInfo', ProjectController.getProjectsListInfo);
+projectRouter.post('/removeProject', ProjectController.removeProject);
+projectRouter.post('/removeImageFile',ProjectController.removeImageFile);
 
 
 export default projectRouter

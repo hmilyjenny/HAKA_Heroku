@@ -20,12 +20,14 @@ var SearchChannelsPage = React.createClass({
     },
     render: function () {
         return (
-            <div>
-                <Input placeholder="请填写渠道名称或编码" type="text" onChange={this.queryhandleChange}/>
-                <Button bsStyle="primary" onClick={this.btnSearch} disabled={this.props.pState.isExecing}>
-                    <Glyphicon glyph="search"/>
-                    查询
-                </Button>
+            <div className="input-group">
+                <input type="text" className="form-control" placeholder="请填写渠道名称或编码" onChange={this.queryhandleChange}/>
+	            <span className="input-group-btn">
+		            <Button bsStyle="primary" onClick={this.btnSearch} disabled={this.props.pState.isExecing}>
+                        <Glyphicon glyph="search"/>
+                            查询
+                        </Button>
+	            </span>
             </div>
         )
     }
